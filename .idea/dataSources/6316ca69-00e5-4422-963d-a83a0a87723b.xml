@@ -1054,7 +1054,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="298" parent="1" name="symbols">
-      <LastIntrospectionLocalTimestamp>2025-04-23.10:59:30</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-04-28.09:23:03</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="299" parent="1" name="sys">
@@ -1088,5 +1088,74 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <user id="306" parent="1" name="yvette">
       <Plugin>caching_sha2_password</Plugin>
     </user>
+    <table id="307" parent="298" name="category">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="308" parent="298" name="symbol">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="309" parent="307" name="id">
+      <AutoIncrement>2</AutoIncrement>
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="310" parent="307" name="name">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <index id="311" parent="307" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="312" parent="307" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="313" parent="308" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="314" parent="308" name="created_at">
+      <DasType>datetime(6)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="315" parent="308" name="description">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="316" parent="308" name="image_url">
+      <DasType>varchar(5000)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="317" parent="308" name="category_id">
+      <DasType>bigint|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="318" parent="308" name="FKl3c75lwvop9ktq4xcnngdmhu1">
+      <ColNames>category_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>category</RefTableName>
+    </foreign-key>
+    <index id="319" parent="308" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="320" parent="308" name="FKl3c75lwvop9ktq4xcnngdmhu1">
+      <ColNames>category_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="321" parent="308" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>
