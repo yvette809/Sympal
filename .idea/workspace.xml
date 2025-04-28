@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="added basic frontend view to visualise the concept">
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" afterDir="false" />
+    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="fixed the ui to look modern">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/DalleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/DalleService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +105,7 @@
       <updated>1745405162582</updated>
       <workItem from="1745405163757" duration="1430000" />
       <workItem from="1745478552080" duration="29463000" />
-      <workItem from="1745828072503" duration="6531000" />
+      <workItem from="1745828072503" duration="8282000" />
     </task>
     <task id="LOCAL−00001" summary="added some basic code for the backend">
       <option name="closed" value="true" />
@@ -127,7 +128,14 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1745833658361</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="fixed the ui to look modern">
+      <option name="closed" value="true" />
+      <created>1745835805984</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1745835805984</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,6 +144,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added some basic code for the backend" />
     <MESSAGE value="added basic frontend view to visualise the concept" />
-    <option name="LAST_COMMIT_MESSAGE" value="added basic frontend view to visualise the concept" />
+    <MESSAGE value="fixed the ui to look modern" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed the ui to look modern" />
   </component>
 </project>

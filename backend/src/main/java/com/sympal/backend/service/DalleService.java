@@ -27,7 +27,7 @@ public class DalleService {
 
         String styledPrompt = "A black and white pictogram icon of " + prompt +
                 ", centered inside a square frame. The icon is filled in black with clean lines and high contrast. " +
-                "No background. The name \"" + prompt + "\" is written clearly in black text above the icon, in a minimal, sans-serif font.";
+                "No background";
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("prompt", styledPrompt);
