@@ -1,0 +1,109 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
+
+const SymbolGenerator = () => {
+    const [prompt, setPrompt] = useState('');
+    const [category, setCategory] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [symbol, setSymbol] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/api/categories');
+                if (!response.ok) throw new Error('Failed to fetch categories');
+                const data = await response.json();
+                if (data.length > 0) {
+                    setCategories(data);
+                    setCategory(data[0].name);
+                } else {
+                    setError('No categories available');
+                }
+            } catch (err) {
+                setError('Failed to fetch categories');
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
+    const handleGenerate = async () => {
+        setLoading(true);
+        setError('');
+        try {
+            const response = await fetch('http://localhost:8080/api/symbols/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt, category }),
+            });
+
+            if (!response.ok) throw new Error('Failed to generate symbol');
+
+            const data = await response.json();
+            setSymbol(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f0f4f8] to-[#d9e2ec] p-6">
+            <div className="w-full max-w-lg p-8 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl">
+                <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">🎨 Symbol Generator</h2>
+
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        placeholder="Describe your symbol..."
+                        className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
+                        value={prompt}
+                        onChange={(e) => setPrompt(e.target.value)}
+                    />
+                </div>
+
+                <div className="mb-6">
+                    <select
+                        className="w-full p-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.name}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <button
+                    onClick={handleGenerate}
+                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-3 rounded-xl text-lg font-semibold hover:from-indigo-600 hover:to-purple-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={loading}
+                >
+                    {loading ? 'Generating...' : 'Generate Symbol'}
+                </button>
+
+                {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+
+                {symbol && (
+                    <div className="mt-8 text-center">
+                        <p className="font-semibold text-lg mb-4 text-gray-700">{symbol.description}</p>
+                        <img
+                            src={symbol.imageUrl}
+                            alt={symbol.description}
+                            className="mx-auto rounded-xl shadow-md max-h-64 object-contain"
+                        />
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default SymbolGenerator;
+
