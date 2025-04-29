@@ -27,7 +27,7 @@ public class SymbolController {
     }
 
     @PostMapping("/generate")
-    public SymbolDTO generateSymbol(@RequestBody SymbolRequest request) {
+    public Symbol generateSymbol(@RequestBody SymbolRequest request) {
         Category category = categoryService.findOrCreate(request.category);
 
         if (category == null) {
@@ -35,7 +35,7 @@ public class SymbolController {
         }
 
         // Pass the category entity to the service
-        SymbolDTO symbol =  symbolService.generateAndSave(request.prompt, category.getName());
+        Symbol symbol =  symbolService.generateAndSave(request.prompt, category.getName());
         System.out.println("Generated symbol: " + symbol);
         return symbol;
     }

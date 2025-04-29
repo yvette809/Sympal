@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="fixed the ui to look modern">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/OpenApiConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6316ca69-00e5-4422-963d-a83a0a87723b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6316ca69-00e5-4422-963d-a83a0a87723b.xml" afterDir="false" />
+    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="added swagger for documentation purpose">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/CloudinaryConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CloudinaryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +49,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "17-add-swagger",
+    "git-widget-placeholder": "19-upload-images-to-cloudinary",
     "jdk.selected.JAVA_MODULE": "openjdk-22",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/HP 1030 G2 Touch/Documents/Sympal/backend/.env",
@@ -111,7 +110,7 @@
       <updated>1745405162582</updated>
       <workItem from="1745405163757" duration="1430000" />
       <workItem from="1745478552080" duration="29463000" />
-      <workItem from="1745828072503" duration="17047000" />
+      <workItem from="1745828072503" duration="19717000" />
     </task>
     <task id="LOCAL−00001" summary="added some basic code for the backend">
       <option name="closed" value="true" />
@@ -148,7 +147,14 @@
       <option name="presentableId" value="LOCAL−00005" />
       <updated>1745843103030</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL−00006" summary="added swagger for documentation purpose">
+      <option name="closed" value="true" />
+      <created>1745930342331</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1745930342331</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -158,6 +164,7 @@
     <MESSAGE value="added some basic code for the backend" />
     <MESSAGE value="added basic frontend view to visualise the concept" />
     <MESSAGE value="fixed the ui to look modern" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the ui to look modern" />
+    <MESSAGE value="added swagger for documentation purpose" />
+    <option name="LAST_COMMIT_MESSAGE" value="added swagger for documentation purpose" />
   </component>
 </project>
