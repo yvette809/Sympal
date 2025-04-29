@@ -6,7 +6,10 @@ import com.sympal.backend.entities.Symbol;
 import com.sympal.backend.service.CategoryService;
 import com.sympal.backend.service.SymbolService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/symbols")
@@ -23,15 +26,8 @@ public class SymbolController {
         public String category;
     }
 
-  /*  @PostMapping("/generate")
-    public Symbol generateSymbol(@RequestBody SymbolRequest request) {
-        return symbolService.generateAndSave(request.prompt, request.category);
-    } */
-
     @PostMapping("/generate")
     public SymbolDTO generateSymbol(@RequestBody SymbolRequest request) {
-        System.out.println("Received Request: " + request);  // Log the request
-        // Fetch the Category entity by name
         Category category = categoryService.findOrCreate(request.category);
 
         if (category == null) {
@@ -39,8 +35,10 @@ public class SymbolController {
         }
 
         // Pass the category entity to the service
-      SymbolDTO symbol =  symbolService.generateAndSave(request.prompt, category.getName());
+        SymbolDTO symbol =  symbolService.generateAndSave(request.prompt, category.getName());
         System.out.println("Generated symbol: " + symbol);
         return symbol;
     }
+
+
 }
