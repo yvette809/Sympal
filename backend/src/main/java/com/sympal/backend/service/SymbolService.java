@@ -52,6 +52,29 @@ public class SymbolService {
         return new SymbolDTO(symbol.getDescription(), symbol.getImageUrl(), categoryDTO);
     }
 
+    public String generateOnly(String prompt) {
+        return dalleService.generateImage(prompt);
+    }
+
+    @Transactional
+    public SymbolDTO saveConfirmedSymbol(SymbolDTO symbolDTO) {
+        // Kontrollera eller skapa kategori
+        Category category = categoryService.findOrCreate(symbolDTO.getCategory().getName());
+
+        // Skapa symbol
+        Symbol symbol = new Symbol();
+        symbol.setDescription(symbolDTO.getDescription());
+        symbol.setImageUrl(symbolDTO.getImageUrl());
+        symbol.setCategory(category);
+
+        category.addSymbol(symbol);
+        categoryRepository.save(category);
+
+        return new SymbolDTO(symbol.getDescription(), symbol.getImageUrl(), new CategoryDTO(category.getName()));
+    }
+
+
+
     // Helper method to convert Category entity to CategoryDTO
     private CategoryDTO convertCategoryToDTO(Category category) {
         return new CategoryDTO(category.getName());
