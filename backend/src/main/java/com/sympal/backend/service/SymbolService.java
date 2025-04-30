@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -54,6 +55,10 @@ public class SymbolService {
     private CloudinaryService cloudinaryService;
 
     public Symbol generateAndSave(String prompt, String categoryName) {
+        Optional<Symbol> existing = symbolRepository.findByDescription(prompt);
+        if (existing.isPresent()) {
+            return existing.get(); // Return existing image
+        }
         Category category = categoryService.findOrCreate(categoryName);
         String dalleUrl = dalleService.generateImage(prompt);
 
