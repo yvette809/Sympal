@@ -4,8 +4,6 @@ import com.sympal.backend.entities.Category;
 import com.sympal.backend.entities.Symbol;
 import com.sympal.backend.repository.CategoryRepository;
 import com.sympal.backend.repository.SymbolRepository;
-import com.sympal.backend.dto.CategoryDTO;
-import com.sympal.backend.dto.SymbolDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
@@ -30,35 +28,19 @@ public class SymbolService {
     @Autowired
     private DalleService dalleService;
 
-   /* @Transactional
-    public SymbolDTO generateAndSave(String prompt, String categoryName) {
-        Category category = categoryService.findOrCreate(categoryName);
-        String imageUrl = dalleService.generateImage(prompt);
-
-        Symbol symbol = new Symbol();
-        symbol.setDescription(prompt);
-        symbol.setImageUrl(imageUrl);
-        symbol.setCategory(category);
-
-       // category.addSymbol(symbol);
-        categoryRepository.save(category);
-        CategoryDTO categoryDTO = convertCategoryToDTO(category);
-        return new SymbolDTO(symbol.getDescription(), symbol.getImageUrl(), categoryDTO);
-    }
-
-    // Helper method to convert Category entity to CategoryDTO
-    private CategoryDTO convertCategoryToDTO(Category category) {
-        return new CategoryDTO(category.getName());
-    }*/
-
     @Autowired
     private CloudinaryService cloudinaryService;
 
-    public Symbol generateAndSave(String prompt, String categoryName) {
+    public String generateSymbol(String prompt){
         Optional<Symbol> existing = symbolRepository.findByDescription(prompt);
         if (existing.isPresent()) {
-            return existing.get(); // Return existing image
+            return existing.get().getImageUrl();
         }
+        return dalleService.generateImage(prompt);
+    }
+
+    public Symbol saveConfirmedSymbol (String prompt, String categoryName) {
+
         Category category = categoryService.findOrCreate(categoryName);
         String dalleUrl = dalleService.generateImage(prompt);
 

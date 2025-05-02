@@ -6,15 +6,16 @@ const SymbolGenerator = () => {
     const [prompt, setPrompt] = useState('');
     const [category, setCategory] = useState('');
     const [categories, setCategories] = useState([]);
-    const [symbol, setSymbol] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
+    const [savedSymbol, setSavedSymbol] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const response = await fetch('http://localhost:8080/api/categories');
-                if (!response.ok) throw new Error('Failed to fetch categories');
                 const data = await response.json();
                 if (data.length > 0) {
                     setCategories(data);
@@ -22,7 +23,7 @@ const SymbolGenerator = () => {
                 } else {
                     setError('No categories available');
                 }
-            } catch (err) {
+            } catch {
                 setError('Failed to fetch categories');
             }
         };
@@ -33,21 +34,47 @@ const SymbolGenerator = () => {
     const handleGenerate = async () => {
         setLoading(true);
         setError('');
+        setImageUrl(null);
+        setSavedSymbol(null);
         try {
-            const response = await fetch('http://localhost:8080/api/symbols/generate', {
+            const response = await fetch(`http://localhost:8080/api/symbols/generate?prompt=${encodeURIComponent(prompt)}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, category }),
             });
+
 
             if (!response.ok) throw new Error('Failed to generate symbol');
 
-            const data = await response.json();
-            setSymbol(data);
+            const url = await response.text(); // bara bild-URL
+            setImageUrl(url);
         } catch (err) {
             setError(err.message);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleSave = async () => {
+        setSaving(true);
+        setError('');
+        try {
+            const symbol = {
+               prompt,
+                categoryName: category
+            };
+
+            const response = await fetch('http://localhost:8080/api/symbols/saveSymbol', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(symbol),
+            });
+
+            const data = await response.json();
+            setSavedSymbol(data);
+            return data
+        } catch (err) {
+            setError('Failed to save symbol');
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -90,15 +117,39 @@ const SymbolGenerator = () => {
 
                 {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
 
-                {symbol && (
+                {imageUrl && (
                     <div className="mt-8 text-center">
-                        <p className="font-semibold text-lg mb-4 text-gray-700">{symbol.description}</p>
+                        <p className="font-semibold text-lg mb-4 text-gray-700">{prompt}</p>
                         <img
-                            src={symbol.imageUrl}
-                            alt={symbol.description}
+                            src={imageUrl}
+                            alt={prompt}
                             className="mx-auto rounded-xl shadow-md max-h-64 object-contain"
                         />
+
+                        <div className="flex justify-center gap-4 mt-4">
+                            <button
+                                onClick={handleSave}
+                                className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-xl font-semibold transition disabled:opacity-50"
+                                disabled={saving}
+                            >
+                                {saving ? 'Sparar...' : 'Spara symbol'}
+                            </button>
+
+                            <button
+                                onClick={handleGenerate}
+                                className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-xl font-semibold transition"
+                                disabled={loading}
+                            >
+                                {loading ? 'Laddar...' : 'Testa igen'}
+                            </button>
+                        </div>
                     </div>
+                )}
+
+                {savedSymbol && (
+                    <p className="mt-4 text-green-600 font-semibold text-center">
+                        ✅ Symbolen sparades!
+                    </p>
                 )}
             </div>
         </div>
@@ -106,4 +157,3 @@ const SymbolGenerator = () => {
 };
 
 export default SymbolGenerator;
-

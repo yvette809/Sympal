@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="images successfully loaded to cloudinary">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6316ca69-00e5-4422-963d-a83a0a87723b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6316ca69-00e5-4422-963d-a83a0a87723b.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +110,8 @@
       <workItem from="1745405163757" duration="1430000" />
       <workItem from="1745478552080" duration="29463000" />
       <workItem from="1745828072503" duration="22814000" />
-      <workItem from="1745996657749" duration="348000" />
+      <workItem from="1745996657749" duration="2510000" />
+      <workItem from="1746189518258" duration="5095000" />
     </task>
     <task id="LOCAL−00001" summary="added some basic code for the backend">
       <option name="closed" value="true" />
@@ -160,7 +162,14 @@
       <option name="presentableId" value="LOCAL−00007" />
       <updated>1745933259430</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL−00008" summary="images successfully loaded to cloudinary">
+      <option name="closed" value="true" />
+      <created>1745997072736</created>
+      <option name="number" value="LOCAL−00008" />
+      <option name="presentableId" value="LOCAL−00008" />
+      <updated>1745997072736</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
