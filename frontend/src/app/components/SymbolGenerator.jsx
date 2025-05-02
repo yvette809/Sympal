@@ -127,13 +127,23 @@ const SymbolGenerator = () => {
                             className="mx-auto rounded-xl shadow-md max-h-64 object-contain"
                         />
 
-                        <button
-                            onClick={handleSave}
-                            className="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-xl font-semibold transition disabled:opacity-50"
-                            disabled={saving}
-                        >
-                            {saving ? 'Saving...' : 'Save Symbol'}
-                        </button>
+                        <div className="flex justify-center gap-4 mt-4">
+                            <button
+                                onClick={handleSave}
+                                className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-xl font-semibold transition disabled:opacity-50"
+                                disabled={saving}
+                            >
+                                {saving ? 'Sparar...' : 'Spara symbol'}
+                            </button>
+
+                            <button
+                                onClick={handleGenerate}
+                                className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-xl font-semibold transition"
+                                disabled={loading}
+                            >
+                                {loading ? 'Laddar...' : 'Testa igen'}
+                            </button>
+                        </div>
                     </div>
                 )}
 
