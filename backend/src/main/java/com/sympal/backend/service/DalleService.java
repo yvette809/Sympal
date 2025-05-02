@@ -29,8 +29,6 @@ public class DalleService {
                 ", centered inside a white square frame. The icon itself is solid black with clean lines and no background. " +
                 "Do not use a black background. High contrast.";
 
-
-
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("prompt", styledPrompt);
         requestBody.put("n", 1);

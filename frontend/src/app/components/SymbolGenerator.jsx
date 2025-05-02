@@ -158,3 +158,4 @@ const SymbolGenerator = () => {
 };
 
 export default SymbolGenerator;
+
