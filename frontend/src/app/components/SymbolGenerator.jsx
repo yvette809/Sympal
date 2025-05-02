@@ -59,7 +59,8 @@ const SymbolGenerator = () => {
         try {
             const symbol = {
                prompt,
-                categoryName: category
+                categoryName: category,
+                imageUrl
             };
 
             const response = await fetch('http://localhost:8080/api/symbols/saveSymbol', {

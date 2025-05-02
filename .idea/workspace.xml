@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="images successfully loaded to cloudinary">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="integrated new changes in to this branch and made some changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/DalleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/DalleService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" afterDir="false" />
     </list>
@@ -111,7 +111,7 @@
       <workItem from="1745478552080" duration="29463000" />
       <workItem from="1745828072503" duration="22814000" />
       <workItem from="1745996657749" duration="2510000" />
-      <workItem from="1746189518258" duration="5095000" />
+      <workItem from="1746189518258" duration="6159000" />
     </task>
     <task id="LOCAL−00001" summary="added some basic code for the backend">
       <option name="closed" value="true" />
@@ -169,7 +169,14 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1745997072736</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="integrated new changes in to this branch and made some changes">
+      <option name="closed" value="true" />
+      <created>1746196184926</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1746196184926</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +188,7 @@
     <MESSAGE value="fixed the ui to look modern" />
     <MESSAGE value="added swagger for documentation purpose" />
     <MESSAGE value="images successfully loaded to cloudinary" />
-    <option name="LAST_COMMIT_MESSAGE" value="images successfully loaded to cloudinary" />
+    <MESSAGE value="integrated new changes in to this branch and made some changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="integrated new changes in to this branch and made some changes" />
   </component>
 </project>

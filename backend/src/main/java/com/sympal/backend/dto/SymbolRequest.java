@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class SymbolRequest {
     private String prompt;
     private String categoryName;
+    private String imageUrl;
 
 }

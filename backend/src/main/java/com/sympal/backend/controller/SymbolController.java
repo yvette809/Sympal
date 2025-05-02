@@ -26,8 +26,9 @@ public class SymbolController {
     public ResponseEntity<Symbol> saveSymbol(@RequestBody SymbolRequest request) {
         String prompt = request.getPrompt();
         String categoryName = request.getCategoryName();
+        String imageUrl = request.getImageUrl();
 
-        Symbol saved = symbolService.saveConfirmedSymbol(prompt, categoryName);
+        Symbol saved = symbolService.saveConfirmedSymbol(prompt, categoryName,imageUrl);
         return ResponseEntity.ok(saved);
     }
 

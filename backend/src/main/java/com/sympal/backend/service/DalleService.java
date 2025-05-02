@@ -25,9 +25,11 @@ public class DalleService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("OpenAI-Organization", "org-CRgNRF1PQzZySlDRdu2GRQrP");
 
-        String styledPrompt = "A black and white pictogram icon of " + prompt +
-                ", centered inside a square frame. The icon is filled in black with clean lines and high contrast. " +
-                "No background";
+        String styledPrompt = "A minimalist black and white pictogram of " + prompt +
+                ", centered inside a white square frame. The icon itself is solid black with clean lines and no background. " +
+                "Do not use a black background. High contrast.";
+
+
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("prompt", styledPrompt);

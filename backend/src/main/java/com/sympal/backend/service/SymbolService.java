@@ -39,12 +39,12 @@ public class SymbolService {
         return dalleService.generateImage(prompt);
     }
 
-    public Symbol saveConfirmedSymbol (String prompt, String categoryName) {
+    public Symbol saveConfirmedSymbol (String prompt, String categoryName, String dalleImageUrl) {
 
         Category category = categoryService.findOrCreate(categoryName);
-        String dalleUrl = dalleService.generateImage(prompt);
+       // String dalleUrl = dalleService.generateImage(prompt);
 
-        byte[] imageBytes = downloadImage(dalleUrl);
+        byte[] imageBytes = downloadImage(dalleImageUrl);
         String fileName = UUID.randomUUID().toString();
 
         String uploadedUrl = cloudinaryService.uploadImage(imageBytes, fileName);
