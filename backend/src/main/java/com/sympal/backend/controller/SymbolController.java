@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.CompletableFuture;
+
 @RestController
 @RequestMapping("/api/symbols")
 public class SymbolController {
@@ -23,6 +25,7 @@ public class SymbolController {
         public String prompt;
         public String category;
     }
+
 
   /*  @PostMapping("/generate")
     public Symbol generateSymbol(@RequestBody SymbolRequest request) {
@@ -55,6 +58,22 @@ public class SymbolController {
     public ResponseEntity<SymbolDTO> save(@RequestBody SymbolDTO dto) {
         SymbolDTO saved = symbolService.saveConfirmedSymbol(dto);
         return ResponseEntity.ok(saved);
+
+    @PostMapping("/generate")
+    public SymbolDTO generateSymbol(@RequestBody SymbolRequest request) {
+        Category category = categoryService.findOrCreate(request.category);
+
+        if (category == null) {
+            throw new IllegalArgumentException("Category not found");
+        }
+
+        // Pass the category entity to the service
+        SymbolDTO symbol =  symbolService.generateAndSave(request.prompt, category.getName());
+        System.out.println("Generated symbol: " + symbol);
+        return symbol;
+
     }
+
+
 }
 

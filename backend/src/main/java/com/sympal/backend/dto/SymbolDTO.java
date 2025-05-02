@@ -1,5 +1,9 @@
 package com.sympal.backend.dto;
 
+import org.springframework.http.ResponseEntity;
+
+import java.util.concurrent.CompletableFuture;
+
 public class SymbolDTO {
     private String description;
     private String imageUrl;
@@ -48,4 +52,6 @@ public class SymbolDTO {
                 ", category=" + category +
                 '}';
     }
+
+
 }
