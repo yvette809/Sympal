@@ -37,11 +37,10 @@ const SymbolGenerator = () => {
         setImageUrl(null);
         setSavedSymbol(null);
         try {
-            const response = await fetch('http://localhost:8080/api/symbols/generate', {
+            const response = await fetch(`http://localhost:8080/api/symbols/generate?prompt=${encodeURIComponent(prompt)}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(prompt),
             });
+
 
             if (!response.ok) throw new Error('Failed to generate symbol');
 
@@ -58,20 +57,21 @@ const SymbolGenerator = () => {
         setSaving(true);
         setError('');
         try {
-            const symbolDTO = {
-                description: prompt,
-                imageUrl: imageUrl,
-                category: { name: category },
+            const symbol = {
+               prompt,
+                categoryName: category,
+                imageUrl
             };
 
-            const response = await fetch('http://localhost:8080/api/symbols/save', {
+            const response = await fetch('http://localhost:8080/api/symbols/saveSymbol', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(symbolDTO),
+                body: JSON.stringify(symbol),
             });
 
             const data = await response.json();
             setSavedSymbol(data);
+            return data
         } catch (err) {
             setError('Failed to save symbol');
         } finally {
@@ -158,3 +158,4 @@ const SymbolGenerator = () => {
 };
 
 export default SymbolGenerator;
+

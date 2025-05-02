@@ -4,12 +4,15 @@ import com.sympal.backend.entities.Category;
 import com.sympal.backend.entities.Symbol;
 import com.sympal.backend.repository.CategoryRepository;
 import com.sympal.backend.repository.SymbolRepository;
-import com.sympal.backend.dto.CategoryDTO;
-import com.sympal.backend.dto.SymbolDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import java.io.IOException;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SymbolService {
@@ -25,48 +28,43 @@ public class SymbolService {
     @Autowired
     private DalleService dalleService;
 
-    @Transactional
-    public SymbolDTO generateAndSave(String prompt, String categoryName) {
-        Category category = categoryService.findOrCreate(categoryName);
-        String imageUrl = dalleService.generateImage(prompt);
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
-        Symbol symbol = new Symbol();
-        symbol.setDescription(prompt);
-        symbol.setImageUrl(imageUrl);
-        symbol.setCategory(category);
-
-       // category.addSymbol(symbol);
-        categoryRepository.save(category);
-        CategoryDTO categoryDTO = convertCategoryToDTO(category);
-        return new SymbolDTO(symbol.getDescription(), symbol.getImageUrl(), categoryDTO);
-    }
-
-    public String generateOnly(String prompt) {
+    public String generateSymbol(String prompt){
+        Optional<Symbol> existing = symbolRepository.findByDescription(prompt);
+        if (existing.isPresent()) {
+            return existing.get().getImageUrl();
+        }
         return dalleService.generateImage(prompt);
     }
 
-    @Transactional
-    public SymbolDTO saveConfirmedSymbol(SymbolDTO symbolDTO) {
-        // Kontrollera eller skapa kategori
-        Category category = categoryService.findOrCreate(symbolDTO.getCategory().getName());
+    public Symbol saveConfirmedSymbol (String prompt, String categoryName, String dalleImageUrl) {
 
-        // Skapa symbol
+        Category category = categoryService.findOrCreate(categoryName);
+       // String dalleUrl = dalleService.generateImage(prompt);
+
+        byte[] imageBytes = downloadImage(dalleImageUrl);
+        String fileName = UUID.randomUUID().toString();
+
+        String uploadedUrl = cloudinaryService.uploadImage(imageBytes, fileName);
+
         Symbol symbol = new Symbol();
-        symbol.setDescription(symbolDTO.getDescription());
-        symbol.setImageUrl(symbolDTO.getImageUrl());
+        symbol.setDescription(prompt);
+        symbol.setImageUrl(uploadedUrl);
         symbol.setCategory(category);
 
-        category.addSymbol(symbol);
-        categoryRepository.save(category);
-
-        return new SymbolDTO(symbol.getDescription(), symbol.getImageUrl(), new CategoryDTO(category.getName()));
+        return symbolRepository.save(symbol);
     }
 
-
-
-    // Helper method to convert Category entity to CategoryDTO
-    private CategoryDTO convertCategoryToDTO(Category category) {
-        return new CategoryDTO(category.getName());
+    // helper method to download image from dalle
+    public byte[] downloadImage(String imageUrl) {
+        try (InputStream in = new URL(imageUrl).openStream()) {
+            return in.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to download image", e);
+        }
     }
+
 
 }

@@ -918,6 +918,32 @@
     <schema id="291" parent="1" name="sys">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
+    <schema id="292" parent="1" name="products">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="293" parent="1" name="carelyo">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="294" parent="1" name="discode">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="295" parent="1" name="cscs">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="296" parent="1" name="wigelconcert">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="297" parent="1" name="sverigetopplistan">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="298" parent="1" name="wigellsconcert">
+    </schema>
+    <schema id="290" parent="1" name="performance_schema">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="291" parent="1" name="sys">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
     <schema id="292" parent="1" name="sverigetopplistan">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
@@ -932,9 +958,20 @@
       <LastIntrospectionLocalTimestamp>2025-04-28.12:49:37</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="299" parent="1" name="sys">
+    <schema id="299" parent="1" name="sakils.schema">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
+    <schema id="300" parent="1" name="sakila">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="301" parent="1" name="symbols">
+      <LastIntrospectionLocalTimestamp>2025-04-28.12:49:37</LastIntrospectionLocalTimestamp>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <user id="302" parent="1" name="yvette">
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
+    <user id="303" parent="1" name="mysql.infoschema">
     <schema id="296" parent="1" name="symbolbibliotek">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
@@ -954,11 +991,27 @@
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
+    <user id="304" parent="1" name="mysql.session">
     <user id="300" parent="1" name="mysql.sys">
+
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
+    <user id="305" parent="1" name="mysql.sys">
+      <CanLogin>0</CanLogin>
+      <Host>localhost</Host>
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
+    <user id="306" parent="1" name="root">
+      <Host>localhost</Host>
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
+    <table id="307" parent="301" name="category">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="308" parent="301" name="symbol">
     <user id="301" parent="1" name="root">
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
