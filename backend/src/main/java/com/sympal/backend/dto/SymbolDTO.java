@@ -9,6 +9,9 @@ public class SymbolDTO {
     private String imageUrl;
     private CategoryDTO category;
 
+    public SymbolDTO() {
+    }
+
     // Constructor
     public SymbolDTO(String description, String imageUrl, CategoryDTO category) {
         this.description = description;
