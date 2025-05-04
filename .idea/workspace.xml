@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="user authentication implemented">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" afterDir="false" />
+    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="fixed jwtRequetFilter class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,13 +142,21 @@
       <option name="presentableId" value="LOCAL−00002" />
       <updated>1746383195184</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL−00003" summary="fixed jwtRequetFilter class">
+      <option name="closed" value="true" />
+      <created>1746384115566</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1746384115566</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="refactored code to stop calling the dalle api twice upon saving symbol" />
     <MESSAGE value="fixed broken files" />
     <MESSAGE value="user authentication implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="user authentication implemented" />
+    <MESSAGE value="fixed jwtRequetFilter class" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed jwtRequetFilter class" />
   </component>
 </project>

@@ -5,6 +5,7 @@ import com.sympal.backend.entities.Symbol;
 import com.sympal.backend.service.SymbolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class SymbolController {
     private SymbolService symbolService;
 
     // 1. Generate symbol (DALL·E only — no saving)
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/generate")
     public ResponseEntity<String> generateSymbol(@RequestParam String prompt) {
         String dalleImageUrl = symbolService.generateSymbol(prompt);
@@ -22,6 +24,7 @@ public class SymbolController {
     }
 
     // 2. Save symbol after user confirms
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/saveSymbol")
     public ResponseEntity<Symbol> saveSymbol(@RequestBody SymbolRequest request) {
         String prompt = request.getPrompt();

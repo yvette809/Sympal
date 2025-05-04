@@ -46,8 +46,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtUtil.extractUsername(jwt);
             } catch (Exception e) {
-                // Handle token parsing errors (e.g., expired, invalid signature)
-                // You might want to log this or send a specific error response
                 System.err.println("Error while extracting username from JWT: " + e.getMessage());
             }
         }
