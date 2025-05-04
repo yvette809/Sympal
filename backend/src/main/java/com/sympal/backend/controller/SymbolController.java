@@ -1,6 +1,6 @@
 package com.sympal.backend.controller;
 
-import com.sympal.backend.dto.SymbolRequest;
+import com.sympal.backend.request.SymbolRequest;
 import com.sympal.backend.entities.Symbol;
 import com.sympal.backend.service.SymbolService;
 import org.springframework.beans.factory.annotation.Autowired;
