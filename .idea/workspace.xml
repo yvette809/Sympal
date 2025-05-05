@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="fixed jwtRequetFilter class">
+    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="added role based authentication to the routea">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/security/CustomOAuth2UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/components/Navigation.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +158,14 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1746384115566</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="added role based authentication to the routea">
+      <option name="closed" value="true" />
+      <created>1746384821946</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1746384821946</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -157,6 +173,7 @@
     <MESSAGE value="fixed broken files" />
     <MESSAGE value="user authentication implemented" />
     <MESSAGE value="fixed jwtRequetFilter class" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed jwtRequetFilter class" />
+    <MESSAGE value="added role based authentication to the routea" />
+    <option name="LAST_COMMIT_MESSAGE" value="added role based authentication to the routea" />
   </component>
 </project>

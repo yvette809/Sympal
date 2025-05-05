@@ -28,6 +28,7 @@ public class User implements UserDetails {
     private String password;
 
     private String role;
+    private String provider;
 
 
     @Override

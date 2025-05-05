@@ -16,7 +16,7 @@ public class SymbolController {
     private SymbolService symbolService;
 
     // 1. Generate symbol (DALL·E only — no saving)
-    @PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/generate")
     public ResponseEntity<String> generateSymbol(@RequestParam String prompt) {
         String dalleImageUrl = symbolService.generateSymbol(prompt);
@@ -24,7 +24,7 @@ public class SymbolController {
     }
 
     // 2. Save symbol after user confirms
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/saveSymbol")
     public ResponseEntity<Symbol> saveSymbol(@RequestBody SymbolRequest request) {
         String prompt = request.getPrompt();
