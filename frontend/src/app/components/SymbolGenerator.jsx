@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import ConfirmationModal from "@/app/components/ConfirmationModal";
 
 const SymbolGenerator = () => {
     const [prompt, setPrompt] = useState('');
@@ -11,6 +12,7 @@ const SymbolGenerator = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [saving, setSaving] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -32,6 +34,7 @@ const SymbolGenerator = () => {
     }, []);
 
     const handleGenerate = async () => {
+        setShowPopup(true);
         setLoading(true);
         setError('');
         setImageUrl(null);
@@ -152,7 +155,24 @@ const SymbolGenerator = () => {
                         ✅ Symbolen sparades!
                     </p>
                 )}
+
+                {showPopup && (
+                    <ConfirmationModal
+                        imageUrl={imageUrl}
+                        onConfirm={async () => {
+                            await handleSave();
+                            setShowPopup(false);
+                            window.location.href = "/";
+                        }}
+                        onReject={handleGenerate}
+                        onCancel={() => setShowPopup(false)} // 🟢 hanterar "Tillbaka"
+                    />
+                )}
+
+
             </div>
+
+
         </div>
     );
 };
