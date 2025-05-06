@@ -14,6 +14,16 @@ const SymbolGenerator = () => {
     const [saving, setSaving] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
+
+    const handleCancel = () => {
+        setShowPopup(false);
+        setImageUrl(null);
+        setSavedSymbol(null);
+        setPrompt('');
+        setCategory(categories.length > 0 ? categories[0].name : '');
+    };
+
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -165,7 +175,7 @@ const SymbolGenerator = () => {
                             window.location.href = "/";
                         }}
                         onReject={handleGenerate}
-                        onCancel={() => setShowPopup(false)} // 🟢 hanterar "Tillbaka"
+                        onCancel={handleCancel}
                     />
                 )}
 

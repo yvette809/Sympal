@@ -9,6 +9,15 @@ const ConfirmationModal = ({ imageUrl, onConfirm, onReject, onCancel }) => {
                 Är du nöjd med symbolen?
             </h2>
 
+            {onCancel && (
+                <button
+                    onClick={onCancel}
+                    className="absolute top-4 left-4 text-sm text-gray-500 hover:text-gray-800"
+                >
+                    ← Tillbaka
+                </button>
+            )}
+
             {imageUrl ? (
                 <img
                     src={imageUrl}
