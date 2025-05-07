@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const ConfirmationModal = ({ imageUrl, onConfirm, onReject, onCancel }) => {
+const ConfirmationModal = ({ imageUrl, onConfirm, onReject, onCancel, loading }) => {
     return (
         <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center p-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
@@ -31,6 +31,7 @@ const ConfirmationModal = ({ imageUrl, onConfirm, onReject, onCancel }) => {
                 </div>
             )}
 
+            {imageUrl && !loading &&(
             <div className="flex gap-6">
                 <button
                     onClick={onConfirm}
@@ -46,6 +47,7 @@ const ConfirmationModal = ({ imageUrl, onConfirm, onReject, onCancel }) => {
                     Nej, generera ny
                 </button>
             </div>
+                )}
         </div>
     );
 };

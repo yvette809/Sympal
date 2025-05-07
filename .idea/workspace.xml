@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="refactored code to stop calling the dalle api twice upon saving symbol" />
+    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="refactored code to stop calling the dalle api twice upon saving symbol">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/ConfirmationModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/ConfirmationModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,6 +142,7 @@
       <workItem from="1746519170308" duration="1657000" />
       <workItem from="1746527128213" duration="70000" />
       <workItem from="1746527354261" duration="463000" />
+      <workItem from="1746602013286" duration="2126000" />
     </task>
     <servers />
   </component>

@@ -169,6 +169,7 @@ const SymbolGenerator = () => {
                 {showPopup && (
                     <ConfirmationModal
                         imageUrl={imageUrl}
+                        loading={loading}
                         onConfirm={async () => {
                             await handleSave();
                             setShowPopup(false);
