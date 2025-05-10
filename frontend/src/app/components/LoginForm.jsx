@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const LoginForm = ({ onClose, switchToRegister }) => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const router = useRouter();
@@ -19,10 +19,8 @@ const LoginForm = ({ onClose, switchToRegister }) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ email, password }),
             });
-
 
             if (!response.ok) {
 
@@ -41,6 +39,7 @@ const LoginForm = ({ onClose, switchToRegister }) => {
 
     const handleGoogleLogin = () => {
         window.location.href = "http://localhost:8080/oauth2/authorization/google";
+
     };
 
     return (
@@ -59,11 +58,11 @@ const LoginForm = ({ onClose, switchToRegister }) => {
 
                 <form onSubmit={handleLogin}>
                     <input
-                        type="username "
+                        type="email"
                         placeholder="Email"
                         className="w-full border p-2 mb-3 rounded"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
 
@@ -78,7 +77,7 @@ const LoginForm = ({ onClose, switchToRegister }) => {
 
                     <button
                         type="submit"
-                        className="bg-red-500 text-white py-2 px-4 rounded w-full hover:bg-red-600"
+                        className="bg-purple-500 text-white py-2 px-4 rounded w-full hover:bg-purple-400"
 
                     >
                         Login

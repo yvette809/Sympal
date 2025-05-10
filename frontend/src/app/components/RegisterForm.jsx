@@ -1,11 +1,10 @@
 "use client";
-"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = ({ onClose, switchToLogin }) => {
-
+    const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,7 +27,7 @@ const RegisterForm = ({ onClose, switchToLogin }) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ email, username, password }),
             });
 
             if (!response.ok) {
@@ -60,6 +59,14 @@ const RegisterForm = ({ onClose, switchToLogin }) => {
 
                 <form onSubmit={handleRegister}>
                     <input
+                        type="email"
+                        placeholder="email"
+                        className="w-full border p-2 mb-3 rounded"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <input
                         type="username"
                         placeholder="username"
                         className="w-full border p-2 mb-3 rounded"
@@ -88,7 +95,7 @@ const RegisterForm = ({ onClose, switchToLogin }) => {
 
                     <button
                         type="submit"
-                        className="bg-green-600 text-white py-2 px-4 rounded w-full hover:bg-green-700"
+                        className="bg-purple-500 text-white font-bolder py-2 px-4 rounded w-full hover:from-[#d9e2ec]  hover:bg-purple-300 border-2 border-[#d9e2ec] shadow-md hover:shadow-lg transition-all"
                     >
                         Register
                     </button>

@@ -38,24 +38,26 @@ public class AuthService {
     public AuthResponse login(AuthRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
+                        request.getEmail(),
                         request.getPassword()
                 )
         );
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        String token = jwtUtil.generateToken(userDetails);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+        String token = jwtUtil.generateToken(userDetails.getUsername());
         return new AuthResponse(token);
     }
 
     public void register(AuthRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Username already taken");
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already taken");
         }
 
         User user = new User();
+        user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setProfileImageUrl(request.getProfile());
         user.setRole("ROLE_USER"); // Default role
 
         userRepository.save(user);

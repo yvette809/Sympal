@@ -1,9 +1,6 @@
 package com.sympal.backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,13 +21,18 @@ public class User implements UserDetails {
     private Long id;
 
     private String username;
+    @Column(nullable = false, unique = true)
+    private String email;
 
     private String password;
-
     private String role;
+    private String profileImageUrl;
     private String provider;
 
-
+    @Override
+    public String getUsername() {
+        return email;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role));
