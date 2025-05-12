@@ -28,7 +28,7 @@ const LoginForm = ({ onClose, onLoginSuccess, switchToRegister }) => {
                 throw new Error("Login failed");
             }
 
-            const data = await response.json();
+            const data = await response.json()
             localStorage.setItem("token", data.token);
             localStorage.setItem("role", data.role); // Store role if needed
 
