@@ -30,9 +30,18 @@ const LoginForm = ({ onClose, onLoginSuccess, switchToRegister }) => {
 
             const data = await response.json();
             localStorage.setItem("token", data.token);
+            localStorage.setItem("role", data.role); // Store role if needed
 
-            onLoginSuccess(); // <-- Notify parent
-            router.push("/clientpage");
+            onLoginSuccess();
+
+            // Redirect based on role
+            if (data.role === "ROLE_ADMIN") {
+                router.push("/adminpage");
+            } else if (data.role === "ROLE_USER") {
+                router.push("/clientpage");
+            } else {
+                router.push("/"); // default
+            }
         } catch (err) {
             setError(err.message);
         }

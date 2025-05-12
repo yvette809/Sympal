@@ -49,7 +49,7 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getUsername());
 
-        return new AuthResponse(token);
+        return new AuthResponse(token,user.getRole());
     }
 
 
