@@ -1,4 +1,5 @@
-package com.sympal.backend.dto;
+package com.sympal.backend.request;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
