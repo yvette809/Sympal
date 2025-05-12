@@ -1,5 +1,6 @@
 package com.sympal.backend.service;
 
+import com.sympal.backend.dto.SymbolDTO;
 import com.sympal.backend.entities.Category;
 import com.sympal.backend.entities.Symbol;
 import com.sympal.backend.repository.CategoryRepository;
@@ -11,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class SymbolService {
@@ -39,32 +42,54 @@ public class SymbolService {
         return dalleService.generateImage(prompt);
     }
 
-    public Symbol saveConfirmedSymbol (String prompt, String categoryName, String dalleImageUrl) {
+//    public Symbol saveConfirmedSymbol (String prompt, String categoryName, String dalleImageUrl) {
+//
+//        Category category = categoryService.findOrCreate(categoryName);
+//       // String dalleUrl = dalleService.generateImage(prompt);
+//
+//        byte[] imageBytes = downloadImage(dalleImageUrl);
+//        String fileName = UUID.randomUUID().toString();
+//
+//        String uploadedUrl = cloudinaryService.uploadImage(imageBytes, fileName);
+//
+//        Symbol symbol = new Symbol();
+//        symbol.setDescription(prompt);
+//        symbol.setImageUrl(uploadedUrl);
+//        symbol.setCategory(category);
+//
+//        return symbolRepository.save(symbol);
+//    }
+//
+//    // helper method to download image from dalle
+//    public byte[] downloadImage(String imageUrl) {
+//        try (InputStream in = new URL(imageUrl).openStream()) {
+//            return in.readAllBytes();
+//        } catch (IOException e) {
+//            throw new RuntimeException("Failed to download image", e);
+//        }
+//    }
 
-        Category category = categoryService.findOrCreate(categoryName);
-       // String dalleUrl = dalleService.generateImage(prompt);
-
-        byte[] imageBytes = downloadImage(dalleImageUrl);
-        String fileName = UUID.randomUUID().toString();
-
-        String uploadedUrl = cloudinaryService.uploadImage(imageBytes, fileName);
-
+    @Transactional
+    public SymbolDTO saveSymbolWithCategories(SymbolDTO dto) {
         Symbol symbol = new Symbol();
-        symbol.setDescription(prompt);
-        symbol.setImageUrl(uploadedUrl);
-        symbol.setCategory(category);
+        symbol.setDescription(dto.getDescription());
+        symbol.setImageUrl(dto.getImageUrl());
 
-        return symbolRepository.save(symbol);
+        List<Category> categories = dto.getCategoryNames().stream()
+                .map(name -> categoryRepository.findByName(name)
+                        .orElseGet(() -> categoryRepository.save(new Category(name))))
+                .collect(Collectors.toList());
+
+        symbol.setCategories(categories);
+        symbolRepository.save(symbol);
+
+        return new SymbolDTO(
+                symbol.getDescription(),
+                symbol.getImageUrl(),
+                categories.stream().map(Category::getName).collect(Collectors.toList())
+        );
     }
 
-    // helper method to download image from dalle
-    public byte[] downloadImage(String imageUrl) {
-        try (InputStream in = new URL(imageUrl).openStream()) {
-            return in.readAllBytes();
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to download image", e);
-        }
-    }
 
 
 }

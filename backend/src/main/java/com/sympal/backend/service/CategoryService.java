@@ -18,33 +18,28 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category findOrCreate(String categoryName) {
-        Category category = categoryRepository.findByName(categoryName);
-        if (category == null) {
-            category = new Category();
-            category.setName(categoryName);
-            categoryRepository.save(category);
-        }
-        return category;
+    // Skapa eller hitta kategori med tilldelade symboler
+    public Category findOrCreate(String categoryName, List<Symbol> symbols) {
+        return categoryRepository.findByName(categoryName)
+                .orElseGet(() -> categoryRepository.save(new Category(categoryName, symbols)));
     }
 
-
+    // Hämta alla kategorier
     public List<Category> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
-        System.out.println("categories" + categories);
+        System.out.println("categories: " + categories);
         return categories;
-        //return categoryRepository.findAll();
     }
 
+    // Skapa ny kategori
     public Category createCategory(Category category) {
         return categoryRepository.save(category);
     }
 
+    // Hämta symboler för en viss kategori
     public List<Symbol> getSymbolsByCategoryId(Long categoryId) {
         return categoryRepository.findById(categoryId)
                 .map(Category::getSymbols)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
-
 }
-

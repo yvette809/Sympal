@@ -107,19 +107,7 @@ const SymbolGenerator = () => {
                     />
                 </div>
 
-                <div className="mb-6">
-                    <select
-                        className="w-full p-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                    >
-                        {categories.map((cat) => (
-                            <option key={cat.id} value={cat.name}>
-                                {cat.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+
 
                 <button
                     onClick={handleGenerate}
@@ -169,6 +157,8 @@ const SymbolGenerator = () => {
                 {showPopup && (
                     <ConfirmationModal
                         imageUrl={imageUrl}
+                        categories={categories}
+                        loading={loading}
                         onConfirm={async () => {
                             await handleSave();
                             setShowPopup(false);
