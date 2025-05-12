@@ -1,56 +1,29 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import {jwtDecode} from "jwt-decode";
-import {useRouter} from "next/navigation"
+import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import useAuthToken from "@/app/hooks/useAuthToken";  // Import the useAuth hook
 
 const Navigation = () => {
     const [modalType, setModalType] = useState(null);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null);
-    const router = useRouter()
-    const pathname = usePathname()
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            try {
-                const decoded = jwtDecode(token);
-                setUser(decoded);
-                setIsLoggedIn(true);
-            } catch (e) {
-                console.error("Invalid token");
-                localStorage.removeItem("token");
-                setIsLoggedIn(false);
-                setUser(null);
-            }
-        }
-    }, [pathname]);
+    const { user, isLoggedIn, logout, reloadUser } = useAuthToken();  // Use the hook
+    const router = useRouter();
+    const pathname = usePathname();
 
     const closeModal = () => setModalType(null);
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        setIsLoggedIn(false);
-        setUser(null);
-        router.push("/")
+        logout();
+        router.push("/");
     };
 
     const handleLoginSuccess = () => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            try {
-                const decoded = jwtDecode(token);
-                setUser(decoded);
-                setIsLoggedIn(true);
-            } catch (e) {
-                console.error("Invalid token after login");
-            }
-        }
+        reloadUser();
         closeModal();
     };
 
@@ -72,7 +45,7 @@ const Navigation = () => {
 
             <nav className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-xl font-bold">Sympal</h1>
+                    <Link href={"/"}><h1 className="text-xl font-bold">Sympal</h1></Link>
 
                     <button
                         className="md:hidden text-white text-2xl"

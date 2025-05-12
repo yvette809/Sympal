@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7522d727-e176-417d-baae-9743f6770c4a" name="Changes" comment="changed generateToken to include username and also made some style enhancements in the frontend">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="7522d727-e176-417d-baae-9743f6770c4a" name="Changes" comment="redirect to admin page created">
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/hooks/useAuthToken.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/security/CustomOAuth2UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/security/CustomOAuth2UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/LoginForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/LoginForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/RegisterForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/RegisterForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/Navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/Navigation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/page.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +103,14 @@
       <updated>1747041685980</updated>
       <workItem from="1747041687672" duration="2692000" />
     </task>
+    <task id="LOCAL−00001" summary="redirect to admin page created">
+      <option name="closed" value="true" />
+      <created>1747056496472</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1747056496472</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,6 +118,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="changed generateToken to include username and also made some style enhancements in the frontend" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed generateToken to include username and also made some style enhancements in the frontend" />
+    <MESSAGE value="redirect to admin page created" />
+    <option name="LAST_COMMIT_MESSAGE" value="redirect to admin page created" />
   </component>
 </project>
