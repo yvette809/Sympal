@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
 
 const RegisterForm = ({ onClose, switchToLogin }) => {
     const [email, setEmail] = useState("");
@@ -42,6 +42,10 @@ const RegisterForm = ({ onClose, switchToLogin }) => {
         }
     };
 
+    const handleGoogleLogin = () => {
+        window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    };
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
@@ -60,21 +64,20 @@ const RegisterForm = ({ onClose, switchToLogin }) => {
                 <form onSubmit={handleRegister}>
                     <input
                         type="email"
-                        placeholder="email"
+                        placeholder="Email"
                         className="w-full border p-2 mb-3 rounded"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <input
-                        type="username"
-                        placeholder="username"
+                        type="text"
+                        placeholder="Username"
                         className="w-full border p-2 mb-3 rounded"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-
                     <input
                         type="password"
                         placeholder="Password"
@@ -83,7 +86,6 @@ const RegisterForm = ({ onClose, switchToLogin }) => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-
                     <input
                         type="password"
                         placeholder="Confirm Password"
@@ -92,15 +94,23 @@ const RegisterForm = ({ onClose, switchToLogin }) => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
-
                     <button
                         type="submit"
-                        className="bg-purple-500 text-white font-bolder py-2 px-4 rounded w-full hover:from-[#d9e2ec]  hover:bg-purple-300 border-2 border-[#d9e2ec] shadow-md hover:shadow-lg transition-all"
+                        className="bg-purple-500 text-white font-bolder py-2 px-4 rounded w-full hover:bg-purple-300 border-2 border-[#d9e2ec] shadow-md hover:shadow-lg transition-all"
                     >
                         Register
                     </button>
                 </form>
 
+                <div className="my-4 text-center text-gray-500">OR</div>
+
+                <button
+                    onClick={handleGoogleLogin}
+                    className="w-full bg-white text-black border border-gray-300 py-2 px-4 rounded flex items-center justify-center gap-2 hover:bg-gray-100 shadow-sm"
+                >
+                    <FcGoogle size={22}/>
+                    Login with Google
+                </button>
                 <div className="text-center mt-4 text-sm text-gray-700">
                     Already have an account?{" "}
                     <button

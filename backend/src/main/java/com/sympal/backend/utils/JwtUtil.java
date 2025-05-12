@@ -15,17 +15,17 @@ public class JwtUtil {
     private String secret;
 
     @Value("${jwt.expiration}")
-    private long expiration; // in milliseconds
+    private long expiration;
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     // ✅ Generate token with only email
-    public String generateToken(String email) {
+    public String generateToken(String email, String username) {
         Map<String, Object> claims = new HashMap<>();
-        // Optionally you can add default claims like role if needed
-        claims.put("roles", "ROLE_USER"); // optional fixed role
+        claims.put("roles", "ROLE_USER");
+        claims.put("username", username);
 
         return Jwts.builder()
                 .setClaims(claims)

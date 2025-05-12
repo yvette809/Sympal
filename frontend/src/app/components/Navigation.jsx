@@ -1,35 +1,65 @@
-"use client"
 "use client";
 
 import { useState, useEffect } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import {jwtDecode} from "jwt-decode";
+import {useRouter} from "next/navigation"
+import { usePathname } from "next/navigation";
 
 const Navigation = () => {
     const [modalType, setModalType] = useState(null);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
+    const router = useRouter()
+    const pathname = usePathname()
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        setIsLoggedIn(!!token);
-    }, []);
+        if (token) {
+            try {
+                const decoded = jwtDecode(token);
+                setUser(decoded);
+                setIsLoggedIn(true);
+            } catch (e) {
+                console.error("Invalid token");
+                localStorage.removeItem("token");
+                setIsLoggedIn(false);
+                setUser(null);
+            }
+        }
+    }, [pathname]);
 
     const closeModal = () => setModalType(null);
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         setIsLoggedIn(false);
+        setUser(null);
+        router.push("/")
+    };
+
+    const handleLoginSuccess = () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decoded = jwtDecode(token);
+                setUser(decoded);
+                setIsLoggedIn(true);
+            } catch (e) {
+                console.error("Invalid token after login");
+            }
+        }
+        closeModal();
     };
 
     return (
         <>
             {modalType === "login" && (
                 <LoginForm
-                    onClose={() => {
-                        closeModal();
-                        setIsLoggedIn(true); // Assume login success
-                    }}
+                    onClose={closeModal}
+                    onLoginSuccess={handleLoginSuccess}
                     switchToRegister={() => setModalType("register")}
                 />
             )}
@@ -53,9 +83,12 @@ const Navigation = () => {
 
                     <ul className="hidden md:flex gap-6">
                         {isLoggedIn ? (
-                            <li className="cursor-pointer" onClick={handleLogout}>
-                                Logout
-                            </li>
+                            <>
+                                <li>{user?.email}</li>
+                                <li className="cursor-pointer" onClick={handleLogout}>
+                                    Logout
+                                </li>
+                            </>
                         ) : (
                             <>
                                 <li className="cursor-pointer" onClick={() => setModalType("login")}>
@@ -72,9 +105,12 @@ const Navigation = () => {
                 {mobileOpen && (
                     <ul className="flex flex-col gap-2 mt-4 md:hidden">
                         {isLoggedIn ? (
-                            <li className="cursor-pointer" onClick={handleLogout}>
-                                Logout
-                            </li>
+                            <>
+                                <li>{user?.email}</li>
+                                <li className="cursor-pointer" onClick={handleLogout}>
+                                    Logout
+                                </li>
+                            </>
                         ) : (
                             <>
                                 <li className="cursor-pointer" onClick={() => setModalType("login")}>

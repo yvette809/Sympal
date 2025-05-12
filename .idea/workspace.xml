@@ -5,26 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="basic login and registration implemented">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/oauth/OAuth2SuccessHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/oauth2/success/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/request/AuthRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/request/AuthRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/security/CustomOAuth2UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/security/CustomOAuth2UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/oauth/OAuth2SuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/oauth/OAuth2SuccessHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CustomUserDetailsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/utils/JwtUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/clientpage/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/clientpage/page.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/LoginForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/LoginForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/Navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/Navigation.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/RegisterForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/RegisterForm.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,37 +45,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BackendApplication.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "7-set-up-jwt-in-spring-boot",
-    "jdk.selected.JAVA_MODULE": "openjdk-22",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/HP 1030 G2 Touch/Documents/Sympal",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;7-set-up-jwt-in-spring-boot&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-22&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP 1030 G2 Touch/Documents/Sympal&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ulfha\IdeaProjects\Sympal\backend\src\main\resources" />
@@ -201,6 +191,7 @@
       <workItem from="1746890718377" duration="15266000" />
       <workItem from="1746910235492" duration="216000" />
       <workItem from="1746910511291" duration="6522000" />
+      <workItem from="1747000977212" duration="5215000" />
     </task>
     <task id="LOCAL−00006" summary="basic login and registration implemented">
       <option name="closed" value="true" />

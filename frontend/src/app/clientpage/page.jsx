@@ -10,10 +10,8 @@ const Page = () => {
     const searchParams = useSearchParams();
 
     useEffect(() => {
-        // First check for the token in localStorage
-        let token = localStorage.getItem("token");
 
-        // If token is not found in localStorage, check for it in the searchParams (URL)
+        let token = localStorage.getItem("token");
         if (!token) {
             token = searchParams.get("token");
         }
@@ -22,7 +20,7 @@ const Page = () => {
             try {
                 const decodedToken = jwtDecode(token);
                 console.log("Decoded Token:", decodedToken);
-                const user = decodedToken.sub;
+                const user = decodedToken.username;
                 setUsername(user);
             } catch (error) {
                 console.error("Invalid token", error);

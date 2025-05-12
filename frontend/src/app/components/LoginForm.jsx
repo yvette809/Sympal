@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import {FcGoogle} from "react-icons/fc";
 
-const LoginForm = ({ onClose, switchToRegister }) => {
+
+const LoginForm = ({ onClose, onLoginSuccess, switchToRegister }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -23,15 +25,14 @@ const LoginForm = ({ onClose, switchToRegister }) => {
             });
 
             if (!response.ok) {
-
-                throw new Error( "Login failed");
+                throw new Error("Login failed");
             }
 
             const data = await response.json();
-            console.log("data", data)
             localStorage.setItem("token", data.token);
+
+            onLoginSuccess(); // <-- Notify parent
             router.push("/clientpage");
-            onClose();
         } catch (err) {
             setError(err.message);
         }
@@ -39,7 +40,6 @@ const LoginForm = ({ onClose, switchToRegister }) => {
 
     const handleGoogleLogin = () => {
         window.location.href = "http://localhost:8080/oauth2/authorization/google";
-
     };
 
     return (
@@ -78,7 +78,6 @@ const LoginForm = ({ onClose, switchToRegister }) => {
                     <button
                         type="submit"
                         className="bg-purple-500 text-white py-2 px-4 rounded w-full hover:bg-purple-400"
-
                     >
                         Login
                     </button>
@@ -88,8 +87,9 @@ const LoginForm = ({ onClose, switchToRegister }) => {
 
                 <button
                     onClick={handleGoogleLogin}
-                    className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                    className="w-full bg-white text-black border border-gray-300 py-2 px-4 rounded flex items-center justify-center gap-2 hover:bg-gray-100 shadow-sm"
                 >
+                    <FcGoogle size={22}/>
                     Login with Google
                 </button>
 
