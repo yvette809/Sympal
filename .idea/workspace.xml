@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="refactored code to stop calling the dalle api twice upon saving symbol">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Symbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/CategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/ConfirmationModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/ConfirmationModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="96455ca6-812e-41ba-99e3-8447b6018578" name="Changes" comment="refactored code to stop calling the dalle api twice upon saving symbol" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,37 +26,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BackendApplication.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "Category-Handling-in-symbol-creation",
-    "jdk.selected.JAVA_MODULE": "openjdk-22",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ulfha/IdeaProjects/Sympal/frontend/src/app/components",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Category-Handling-in-symbol-creation&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-22&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ulfha/IdeaProjects/Sympal/frontend/src/app/components&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ulfha\IdeaProjects\Sympal\frontend\src\app\components" />
@@ -150,6 +139,7 @@
       <workItem from="1746527128213" duration="70000" />
       <workItem from="1746527354261" duration="463000" />
       <workItem from="1747044493733" duration="7395000" />
+      <workItem from="1747136450896" duration="1408000" />
     </task>
     <servers />
   </component>
