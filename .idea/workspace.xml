@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7522d727-e176-417d-baae-9743f6770c4a" name="Changes" comment="redirect to admin page created">
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/hooks/useAuthToken.js" afterDir="false" />
+    <list default="true" id="7522d727-e176-417d-baae-9743f6770c4a" name="Changes" comment="included central state management and basic welcome page">
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/categories/[id]/page.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/Navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/Navigation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/page.js" afterDir="false" />
     </list>
@@ -110,7 +111,14 @@
       <option name="presentableId" value="LOCAL−00001" />
       <updated>1747056496472</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="included central state management and basic welcome page">
+      <option name="closed" value="true" />
+      <created>1747066466243</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1747066466243</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +127,22 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="changed generateToken to include username and also made some style enhancements in the frontend" />
     <MESSAGE value="redirect to admin page created" />
-    <option name="LAST_COMMIT_MESSAGE" value="redirect to admin page created" />
+    <MESSAGE value="included central state management and basic welcome page" />
+    <option name="LAST_COMMIT_MESSAGE" value="included central state management and basic welcome page" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Category.java</url>
+          <line>36</line>
+          <properties class="com.sympal.backend.entities.Category" method="removeSymbol">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

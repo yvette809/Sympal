@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import ConfirmationModal from "@/app/components/ConfirmationModal";
-import useAuthToken  from "@/app/hooks/useAuthToken";
+import useAuthToken from "@/app/hooks/useAuthToken";
+import { fetchCategories, generateSymbol, saveSymbol } from "@/app/api"; // Import API functions
 
 const SymbolGenerator = () => {
     const [prompt, setPrompt] = useState('');
@@ -15,8 +16,7 @@ const SymbolGenerator = () => {
     const [saving, setSaving] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
-    //const token = useAuthToken()
-    const { token} = useAuthToken();
+    const { token } = useAuthToken();
 
     const handleCancel = () => {
         setShowPopup(false);
@@ -27,22 +27,21 @@ const SymbolGenerator = () => {
     };
 
     useEffect(() => {
-        const fetchCategories = async () => {
+        const loadCategories = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/categories');
-                const data = await response.json();
+                const data = await fetchCategories();
                 if (data.length > 0) {
                     setCategories(data);
                     setCategory(data[0].name);
                 } else {
                     setError('No categories available');
                 }
-            } catch {
+            } catch (err) {
                 setError('Failed to fetch categories');
             }
         };
 
-        fetchCategories();
+        loadCategories();
     }, []);
 
     const handleGenerate = async () => {
@@ -52,23 +51,14 @@ const SymbolGenerator = () => {
         setImageUrl(null);
         setSavedSymbol(null);
 
-        if(!token){
+        if (!token) {
             setError("User unauthorized. Please log in.");
             setLoading(false);
             return;
         }
+
         try {
-            const response = await fetch(`http://localhost:8080/api/symbols/generate?prompt=${encodeURIComponent(prompt)}`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (!response.ok) throw new Error('Failed to generate symbol');
-
-
-            const url = await response.text();
+            const url = await generateSymbol(token, prompt);
             setImageUrl(url);
         } catch (err) {
             setError(err.message);
@@ -81,11 +71,12 @@ const SymbolGenerator = () => {
         setSaving(true);
         setError('');
 
-        if(!token){
+        if (!token) {
             setError("User unauthorized. Please log in as Admin.");
             setLoading(false);
             return;
         }
+
         try {
             const symbol = {
                 prompt,
@@ -93,18 +84,8 @@ const SymbolGenerator = () => {
                 imageUrl
             };
 
-            const response = await fetch('http://localhost:8080/api/symbols/saveSymbol', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(symbol),
-            });
-
-            const data = await response.json();
+            const data = await saveSymbol(token, symbol);
             setSavedSymbol(data);
-            return data;
         } catch (err) {
             setError('Failed to save symbol');
         } finally {

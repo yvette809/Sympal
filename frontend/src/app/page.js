@@ -1,59 +1,42 @@
-"use client";
+"use client"
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import useAuthToken from "@/app/hooks/useAuthToken"; // Assuming this is your useAuth hook
+import useAuthToken from "@/app/hooks/useAuthToken";
+import { fetchCategories } from "@/app/api";
+import {useRouter}  from "next/navigation";
+import Link from "next/link";
 
-const categories = [
-    { icon: '🏠', name: 'Daily Living' },
-    { icon: '🍽️', name: 'Food & Drinks' },
-    { icon: '😄', name: 'Emotions' },
-    { icon: '🏥', name: 'Health' },
-    { icon: '🚗', name: 'Travel' },
-    { icon: '🐶', name: 'Animals' },
-];
 
 export default function HomePage() {
-    const router = useRouter();
+    const [categories, setCategories] = useState([]);
     const { user, isLoggedIn } = useAuthToken();
-    console.log("User info:", user);
 
+    const router = useRouter()
 
-    const handleCategoryClick = () => {
-        if (!isLoggedIn) {
-            alert('Please log in to access this category.');
-        } else {
-            // You can route to the category page here in future
-        }
-    };
+    useEffect(() => {
+        const loadCategories = async () => {
+            try {
+                const data = await fetchCategories();
+                // Filter out categories with null names
+                const validCategories = data.filter((cat) => cat.name);
+                if (validCategories.length > 0) {
+                    setCategories(validCategories);
+                } else {
+                    setCategories([]);
+                }
+            } catch (err) {
+                console.error("Error fetching categories:", err);
+            }
+        };
+
+        loadCategories();
+    }, []);
+
 
     return (
         <main className="min-h-screen flex flex-col justify-between bg-white text-gray-800">
-            <header className="p-6 flex justify-between items-center shadow-md">
-                <h1 className="text-2xl font-bold">SymPal</h1>
-                <div className="space-x-4">
-                    {isLoggedIn ? (
-                        <button
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                            onClick={() =>
-                                user?.role === "ROLE_ADMIN"
-                                    ? router.push('/adminpage')
-                                    : router.push('/clientpage')
-                            }
-                        >
-                            Go to Dashboard
-                        </button>
-                    ) : (
-                        <button
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                            onClick={() => router.push('/login')}
-                        >
-                            Login
-                        </button>
-                    )}
-                </div>
-            </header>
+
 
             <section className="text-center py-16 px-6">
                 <h2 className="text-4xl font-semibold mb-4">Explore Symbol Categories</h2>
@@ -61,15 +44,20 @@ export default function HomePage() {
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                     {categories.map((cat) => (
-                        <motion.div
-                            key={cat.name}
+                            <Link  key={cat.id} href={`/categories/${cat.id}`}>
+                            <motion.div
                             className="bg-blue-100 p-6 rounded-2xl shadow hover:scale-105 transition transform cursor-pointer"
                             whileHover={{ scale: 1.05 }}
-                            onClick={handleCategoryClick}
+
                         >
-                            <div className="text-5xl mb-2">{cat.icon}</div>
-                            <p className="text-lg font-medium">{cat.name}</p>
+                            <div className="text-5xl mb-2">
+                                {cat.icon}
+                            </div>
+                            <p className="text-lg font-medium">
+                                {cat.name}
+                            </p>
                         </motion.div>
+                        </Link>
                     ))}
                 </div>
             </section>
