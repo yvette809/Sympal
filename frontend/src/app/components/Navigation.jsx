@@ -6,12 +6,12 @@ import RegisterForm from "./RegisterForm";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import useAuthToken from "@/app/hooks/useAuthToken";  // Import the useAuth hook
+import useAuthToken from "@/app/hooks/useAuthToken";
 
 const Navigation = () => {
     const [modalType, setModalType] = useState(null);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const { user, isLoggedIn, logout, reloadUser } = useAuthToken();  // Use the hook
+    const { user, isLoggedIn, logout, reloadUser } = useAuthToken();
     const router = useRouter();
     const pathname = usePathname();
 
@@ -43,9 +43,9 @@ const Navigation = () => {
                 />
             )}
 
-            <nav className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4">
-                <div className="flex items-center justify-between">
-                    <Link href={"/"}><h1 className="text-xl font-bold">Sympal</h1></Link>
+            <nav className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white p-4 shadow-lg sticky top-0 z-10">
+                <div className="flex items-center justify-between max-w-6xl mx-auto">
+                    <Link href={"/"}><h1 className="text-2xl font-semibold tracking-tight">Sympal</h1></Link>
 
                     <button
                         className="md:hidden text-white text-2xl"
@@ -54,20 +54,30 @@ const Navigation = () => {
                         ☰
                     </button>
 
-                    <ul className="hidden md:flex gap-6">
+                    {/* Desktop Navigation */}
+                    <ul className="hidden md:flex gap-8 items-center">
                         {isLoggedIn ? (
                             <>
-                                <li>{user?.email}</li>
-                                <li className="cursor-pointer" onClick={handleLogout}>
+                                <li className="text-lg">{user?.email}</li>
+                                <li
+                                    className="cursor-pointer py-2 px-4 rounded-md bg-red-600 hover:bg-red-700 transition duration-300"
+                                    onClick={handleLogout}
+                                >
                                     Logout
                                 </li>
                             </>
                         ) : (
                             <>
-                                <li className="cursor-pointer" onClick={() => setModalType("login")}>
+                                <li
+                                    className="cursor-pointer py-2 px-4 rounded-md bg-blue-600 hover:bg-blue-700 transition duration-300"
+                                    onClick={() => setModalType("login")}
+                                >
                                     Login
                                 </li>
-                                <li className="cursor-pointer" onClick={() => setModalType("register")}>
+                                <li
+                                    className="cursor-pointer py-2 px-4 rounded-md bg-green-600 hover:bg-green-700 transition duration-300"
+                                    onClick={() => setModalType("register")}
+                                >
                                     Register
                                 </li>
                             </>
@@ -75,21 +85,31 @@ const Navigation = () => {
                     </ul>
                 </div>
 
+                {/* Mobile Navigation */}
                 {mobileOpen && (
-                    <ul className="flex flex-col gap-2 mt-4 md:hidden">
+                    <ul className="flex flex-col gap-4 mt-4 md:hidden">
                         {isLoggedIn ? (
                             <>
-                                <li>{user?.email}</li>
-                                <li className="cursor-pointer" onClick={handleLogout}>
+                                <li className="text-lg">{user?.email}</li>
+                                <li
+                                    className="cursor-pointer py-2 px-4 rounded-md bg-red-600 hover:bg-red-700 transition duration-300"
+                                    onClick={handleLogout}
+                                >
                                     Logout
                                 </li>
                             </>
                         ) : (
                             <>
-                                <li className="cursor-pointer" onClick={() => setModalType("login")}>
+                                <li
+                                    className="cursor-pointer py-2 px-4 rounded-md bg-blue-600 hover:bg-blue-700 transition duration-300"
+                                    onClick={() => setModalType("login")}
+                                >
                                     Login
                                 </li>
-                                <li className="cursor-pointer" onClick={() => setModalType("register")}>
+                                <li
+                                    className="cursor-pointer py-2 px-4 rounded-md bg-green-600 hover:bg-green-700 transition duration-300"
+                                    onClick={() => setModalType("register")}
+                                >
                                     Register
                                 </li>
                             </>

@@ -61,15 +61,6 @@ export default function HomePage() {
                     ))}
                 </div>
             </section>
-
-            <footer className="bg-gray-100 py-6 text-center text-sm text-gray-500">
-                <p>
-                    <a href="/about" className="mx-2 hover:underline">About</a>|
-                    <a href="/privacy" className="mx-2 hover:underline">Privacy</a>|
-                    <a href="/terms" className="mx-2 hover:underline">Terms</a>
-                </p>
-                <p className="mt-2">© 2025 SymPal</p>
-            </footer>
         </main>
     );
 }
