@@ -36,8 +36,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             // ✅ Generate dummy password
             String dummyPassword = passwordEncoder.encode(UUID.randomUUID().toString());
-           u.setPassword(dummyPassword);
-          u.setProfileImageUrl(picture);
+            u.setPassword(dummyPassword);
+            u.setProfileImageUrl(picture);
             u.setRole("ROLE_USER");
             u.setProvider("google");
             repo.save(u);

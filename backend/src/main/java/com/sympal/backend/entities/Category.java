@@ -22,6 +22,8 @@ public class Category {
 
     private String name;
 
+    private String icon;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Symbol> symbols = new ArrayList<>();
 
@@ -36,6 +38,4 @@ public class Category {
         symbols.remove(symbol);
         symbol.setCategory(null);
     }
-
-
 }

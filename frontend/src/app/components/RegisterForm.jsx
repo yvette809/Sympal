@@ -109,7 +109,7 @@ const RegisterForm = ({ onClose, switchToLogin }) => {
                     className="w-full bg-white text-black border border-gray-300 py-2 px-4 rounded flex items-center justify-center gap-2 hover:bg-gray-100 shadow-sm"
                 >
                     <FcGoogle size={22}/>
-                    Login with Google
+                    Continue with Google
                 </button>
                 <div className="text-center mt-4 text-sm text-gray-700">
                     Already have an account?{" "}
