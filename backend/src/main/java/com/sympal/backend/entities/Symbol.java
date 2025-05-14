@@ -32,6 +32,8 @@ public class Symbol {
             joinColumns = @JoinColumn(name = "symbol_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+
+    @JsonIgnore
     private List<Category> categories = new ArrayList<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();

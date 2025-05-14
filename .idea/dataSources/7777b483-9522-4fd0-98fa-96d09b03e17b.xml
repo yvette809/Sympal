@@ -6,9 +6,7 @@
       <DefaultEngine>InnoDB</DefaultEngine>
       <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
       <Grants>|root||root|localhost|ALTER|G
-|root||yvette||ALTER|G
 |root||root|localhost|ALTER ROUTINE|G
-|root||yvette||ALTER ROUTINE|G
 |root||root|localhost|APPLICATION_PASSWORD_ADMIN|G
 |root||mysql.infoschema|localhost|AUDIT_ABORT_EXEMPT|G
 |root||mysql.session|localhost|AUDIT_ABORT_EXEMPT|G
@@ -26,30 +24,19 @@
 |root||mysql.session|localhost|CONNECTION_ADMIN|G
 |root||root|localhost|CONNECTION_ADMIN|G
 |root||root|localhost|CREATE|G
-|root||yvette||CREATE|G
 |root||root|localhost|CREATE ROLE|G
 |root||root|localhost|CREATE ROUTINE|G
-|root||yvette||CREATE ROUTINE|G
 |root||root|localhost|CREATE TABLESPACE|G
-|root||yvette||CREATE TABLESPACE|G
 |root||root|localhost|CREATE TEMPORARY TABLES|G
-|root||yvette||CREATE TEMPORARY TABLES|G
 |root||root|localhost|CREATE USER|G
-|root||yvette||CREATE USER|G
 |root||root|localhost|CREATE VIEW|G
-|root||yvette||CREATE VIEW|G
 |root||root|localhost|DELETE|G
-|root||yvette||DELETE|G
 |root||root|localhost|DROP|G
-|root||yvette||DROP|G
 |root||root|localhost|DROP ROLE|G
 |root||root|localhost|ENCRYPTION_KEY_ADMIN|G
 |root||root|localhost|EVENT|G
-|root||yvette||EVENT|G
 |root||root|localhost|EXECUTE|G
-|root||yvette||EXECUTE|G
 |root||root|localhost|FILE|G
-|root||yvette||FILE|G
 |root||mysql.infoschema|localhost|FIREWALL_EXEMPT|G
 |root||mysql.session|localhost|FIREWALL_EXEMPT|G
 |root||mysql.sys|localhost|FIREWALL_EXEMPT|G
@@ -61,26 +48,18 @@
 |root||root|localhost|GROUP_REPLICATION_ADMIN|G
 |root||root|localhost|GROUP_REPLICATION_STREAM|G
 |root||root|localhost|INDEX|G
-|root||yvette||INDEX|G
 |root||root|localhost|INNODB_REDO_LOG_ARCHIVE|G
 |root||root|localhost|INNODB_REDO_LOG_ENABLE|G
 |root||root|localhost|INSERT|G
-|root||yvette||INSERT|G
 |root||root|localhost|LOCK TABLES|G
-|root||yvette||LOCK TABLES|G
 |root||root|localhost|PASSWORDLESS_USER_ADMIN|G
 |root||mysql.session|localhost|PERSIST_RO_VARIABLES_ADMIN|G
 |root||root|localhost|PERSIST_RO_VARIABLES_ADMIN|G
 |root||root|localhost|PROCESS|G
-|root||yvette||PROCESS|G
 |root||root|localhost|REFERENCES|G
-|root||yvette||REFERENCES|G
 |root||root|localhost|RELOAD|G
-|root||yvette||RELOAD|G
 |root||root|localhost|REPLICATION CLIENT|G
-|root||yvette||REPLICATION CLIENT|G
 |root||root|localhost|REPLICATION SLAVE|G
-|root||yvette||REPLICATION SLAVE|G
 |root||root|localhost|REPLICATION_APPLIER|G
 |root||root|localhost|REPLICATION_SLAVE_ADMIN|G
 |root||root|localhost|RESOURCE_GROUP_ADMIN|G
@@ -88,23 +67,18 @@
 |root||root|localhost|ROLE_ADMIN|G
 |root||mysql.infoschema|localhost|SELECT|G
 |root||root|localhost|SELECT|G
-|root||yvette||SELECT|G
 |root||root|localhost|SENSITIVE_VARIABLES_OBSERVER|G
 |root||root|localhost|SERVICE_CONNECTION_ADMIN|G
 |root||mysql.session|localhost|SESSION_VARIABLES_ADMIN|G
 |root||root|localhost|SESSION_VARIABLES_ADMIN|G
 |root||root|localhost|SET_USER_ID|G
 |root||root|localhost|SHOW DATABASES|G
-|root||yvette||SHOW DATABASES|G
 |root||root|localhost|SHOW VIEW|G
-|root||yvette||SHOW VIEW|G
 |root||root|localhost|SHOW_ROUTINE|G
 |root||mysql.session|localhost|SHUTDOWN|G
 |root||root|localhost|SHUTDOWN|G
-|root||yvette||SHUTDOWN|G
 |root||mysql.session|localhost|SUPER|G
 |root||root|localhost|SUPER|G
-|root||yvette||SUPER|G
 |root||mysql.infoschema|localhost|SYSTEM_USER|G
 |root||mysql.session|localhost|SYSTEM_USER|G
 |root||mysql.sys|localhost|SYSTEM_USER|G
@@ -114,15 +88,12 @@
 |root||root|localhost|TABLE_ENCRYPTION_ADMIN|G
 |root||root|localhost|TELEMETRY_LOG_ADMIN|G
 |root||root|localhost|TRIGGER|G
-|root||yvette||TRIGGER|G
 |root||root|localhost|UPDATE|G
-|root||yvette||UPDATE|G
 |root||root|localhost|XA_RECOVER_ADMIN|G
 |root||root|localhost|grant option|G
-|root||yvette||grant option|G
 performance_schema|schema||mysql.session|localhost|SELECT|G
 sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
-      <ServerVersion>8.0.36</ServerVersion>
+      <ServerVersion>8.0.41</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
@@ -1023,223 +994,214 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <collation id="287" parent="1" name="utf8mb4_zh_0900_as_cs">
       <Charset>utf8mb4</Charset>
     </collation>
-    <schema id="288" parent="1" name="carelyo">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="289" parent="1" name="cscs">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="290" parent="1" name="discode">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="291" parent="1" name="information_schema">
+    <schema id="288" parent="1" name="information_schema">
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
-    <schema id="292" parent="1" name="mysql">
+    <schema id="289" parent="1" name="mysql">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="293" parent="1" name="performance_schema">
+    <schema id="290" parent="1" name="performance_schema">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="294" parent="1" name="products">
+    <schema id="291" parent="1" name="sakila">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="295" parent="1" name="sakila">
+    <schema id="292" parent="1" name="sverigetopplistan">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="296" parent="1" name="sakils.schema">
+    <schema id="293" parent="1" name="symbolbibliotek">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="297" parent="1" name="sverigetopplistan">
+    <schema id="294" parent="1" name="symbols">
+      <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
+      <LastIntrospectionLevel>3</LastIntrospectionLevel>
+      <LastIntrospectionLocalTimestamp>2025-05-14.11:07:46</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="298" parent="1" name="symbols">
-      <LastIntrospectionLocalTimestamp>2025-05-14.09:20:53</LastIntrospectionLocalTimestamp>
+    <schema id="295" parent="1" name="sys">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="299" parent="1" name="sys">
+    <schema id="296" parent="1" name="wigellconsert">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="300" parent="1" name="wigelconcert">
+    <schema id="297" parent="1" name="wigellsconcerts">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="301" parent="1" name="wigellsconcert">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <user id="302" parent="1" name="mysql.infoschema">
+    <user id="298" parent="1" name="mysql.infoschema">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="303" parent="1" name="mysql.session">
+    <user id="299" parent="1" name="mysql.session">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="304" parent="1" name="mysql.sys">
+    <user id="300" parent="1" name="mysql.sys">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="305" parent="1" name="root">
+    <user id="301" parent="1" name="root">
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="306" parent="1" name="yvette">
-      <Plugin>caching_sha2_password</Plugin>
-    </user>
-    <table id="307" parent="298" name="category">
+    <table id="302" parent="294" name="category">
+      <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="308" parent="298" name="symbol">
+    <table id="303" parent="294" name="symbol">
+      <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="309" parent="298" name="symbol_categories">
+    <table id="304" parent="294" name="symbol_categories">
+      <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="310" parent="298" name="user">
+    <table id="305" parent="294" name="user">
+      <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="311" parent="307" name="id">
+    <column id="306" parent="302" name="id">
       <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="312" parent="307" name="icon">
+    <column id="307" parent="302" name="icon">
       <Position>2</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="313" parent="307" name="name">
+    <column id="308" parent="302" name="name">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <index id="314" parent="307" name="PRIMARY">
+    <index id="309" parent="302" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="315" parent="307" name="UK46ccwnsi9409t36lurvtyljak">
+    <index id="310" parent="302" name="UK46ccwnsi9409t36lurvtyljak">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="316" parent="307" name="PRIMARY">
+    <key id="311" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="317" parent="307" name="UK46ccwnsi9409t36lurvtyljak">
+    <key id="312" parent="302" name="UK46ccwnsi9409t36lurvtyljak">
       <UnderlyingIndexName>UK46ccwnsi9409t36lurvtyljak</UnderlyingIndexName>
     </key>
-    <column id="318" parent="308" name="id">
+    <column id="313" parent="303" name="id">
       <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="319" parent="308" name="created_at">
+    <column id="314" parent="303" name="created_at">
       <Position>2</Position>
       <StoredType>datetime(6)|0s</StoredType>
     </column>
-    <column id="320" parent="308" name="description">
+    <column id="315" parent="303" name="description">
       <Position>3</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="321" parent="308" name="image_url">
+    <column id="316" parent="303" name="image_url">
       <Position>4</Position>
       <StoredType>varchar(5000)|0s</StoredType>
     </column>
-    <index id="322" parent="308" name="PRIMARY">
+    <index id="317" parent="303" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="323" parent="308" name="PRIMARY">
+    <key id="318" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="324" parent="309" name="symbol_id">
+    <column id="319" parent="304" name="symbol_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="325" parent="309" name="category_id">
+    <column id="320" parent="304" name="category_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <foreign-key id="326" parent="309" name="FK9uj7kds3259dayxbtkw6kksi2">
+    <foreign-key id="321" parent="304" name="FK9uj7kds3259dayxbtkw6kksi2">
       <ColNames>symbol_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>symbol</RefTableName>
     </foreign-key>
-    <foreign-key id="327" parent="309" name="FKn36e5mco3emreobely9jrh64y">
+    <foreign-key id="322" parent="304" name="FKn36e5mco3emreobely9jrh64y">
       <ColNames>category_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>category</RefTableName>
     </foreign-key>
-    <index id="328" parent="309" name="FK9uj7kds3259dayxbtkw6kksi2">
+    <index id="323" parent="304" name="FK9uj7kds3259dayxbtkw6kksi2">
       <ColNames>symbol_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="329" parent="309" name="FKn36e5mco3emreobely9jrh64y">
+    <index id="324" parent="304" name="FKn36e5mco3emreobely9jrh64y">
       <ColNames>category_id</ColNames>
       <Type>btree</Type>
     </index>
-    <column id="330" parent="310" name="id">
+    <column id="325" parent="305" name="id">
       <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="331" parent="310" name="email">
+    <column id="326" parent="305" name="email">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="332" parent="310" name="password">
+    <column id="327" parent="305" name="password">
       <Position>3</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="333" parent="310" name="profile_image_url">
+    <column id="328" parent="305" name="profile_image_url">
       <Position>4</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="334" parent="310" name="provider">
+    <column id="329" parent="305" name="provider">
       <Position>5</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="335" parent="310" name="role">
+    <column id="330" parent="305" name="role">
       <Position>6</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="336" parent="310" name="username">
+    <column id="331" parent="305" name="username">
       <Position>7</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <index id="337" parent="310" name="PRIMARY">
+    <index id="332" parent="305" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="338" parent="310" name="UKob8kqyqqgmefl0aco34akdtpe">
+    <index id="333" parent="305" name="UKob8kqyqqgmefl0aco34akdtpe">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="339" parent="310" name="PRIMARY">
+    <key id="334" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="340" parent="310" name="UKob8kqyqqgmefl0aco34akdtpe">
+    <key id="335" parent="305" name="UKob8kqyqqgmefl0aco34akdtpe">
       <UnderlyingIndexName>UKob8kqyqqgmefl0aco34akdtpe</UnderlyingIndexName>
     </key>
   </database-model>
