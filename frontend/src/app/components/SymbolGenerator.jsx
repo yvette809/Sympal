@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import ConfirmationModal from "@/app/components/ConfirmationModal";
 
+
 const SymbolGenerator = () => {
     const [prompt, setPrompt] = useState('');
     const [category, setCategory] = useState('');
@@ -13,6 +14,7 @@ const SymbolGenerator = () => {
     const [error, setError] = useState('');
     const [saving, setSaving] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
 
     const handleCancel = () => {
@@ -21,6 +23,15 @@ const SymbolGenerator = () => {
         setSavedSymbol(null);
         setPrompt('');
         setCategory(categories.length > 0 ? categories[0].name : '');
+        setSelectedCategories([]);
+    };
+
+    const toggleCategory = (name) => {
+        setSelectedCategories((prevSelected) =>
+            prevSelected.includes(name)
+                ? prevSelected.filter((cat) => cat !== name)
+                : [...prevSelected, name]
+        );
     };
 
 
@@ -43,6 +54,23 @@ const SymbolGenerator = () => {
         fetchCategories();
     }, []);
 
+    const handleCreateCategory = async (name) => {
+        try {
+            const response = await fetch('http://localhost:8080/api/categories', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name }),
+            });
+
+            if (!response.ok) throw new Error("Misslyckades att skapa kategori");
+
+            const newCategory = await response.json();
+            setCategories((prev) => [...prev, newCategory]);
+        } catch (error) {
+            console.error("Fel vid skapande av kategori:", error);
+        }
+    };
+
     const handleGenerate = async () => {
         setShowPopup(true);
         setLoading(true);
@@ -59,6 +87,7 @@ const SymbolGenerator = () => {
 
             const url = await response.text(); // bara bild-URL
             setImageUrl(url);
+
         } catch (err) {
             setError(err.message);
         } finally {
@@ -71,9 +100,9 @@ const SymbolGenerator = () => {
         setError('');
         try {
             const symbol = {
-               prompt,
-                categoryName: category,
-                imageUrl
+                prompt,
+                imageUrl,
+                categories: selectedCategories.map(name => ({ name }))
             };
 
             const response = await fetch('http://localhost:8080/api/symbols/saveSymbol', {
@@ -84,13 +113,14 @@ const SymbolGenerator = () => {
 
             const data = await response.json();
             setSavedSymbol(data);
-            return data
+            return data;
         } catch (err) {
             setError('Failed to save symbol');
         } finally {
             setSaving(false);
         }
     };
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f0f4f8] to-[#d9e2ec] p-6">
@@ -159,6 +189,9 @@ const SymbolGenerator = () => {
                         imageUrl={imageUrl}
                         categories={categories}
                         loading={loading}
+                        selectedCategories={selectedCategories}
+                        setSelectedCategories={setSelectedCategories}
+                        onCreateCategory={handleCreateCategory}
                         onConfirm={async () => {
                             await handleSave();
                             setShowPopup(false);
@@ -166,6 +199,7 @@ const SymbolGenerator = () => {
                         }}
                         onReject={handleGenerate}
                         onCancel={handleCancel}
+                        toggleCategory={toggleCategory}
                     />
                 )}
 
