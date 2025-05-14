@@ -69,7 +69,7 @@ public class SymbolService {
 //        }
 //    }
 
-    @Transactional
+   /* @Transactional
     public SymbolDTO saveSymbolWithCategories(SymbolDTO dto) {
         Symbol symbol = new Symbol();
         symbol.setDescription(dto.getDescription());
@@ -88,7 +88,36 @@ public class SymbolService {
                 symbol.getImageUrl(),
                 categories.stream().map(Category::getName).collect(Collectors.toList())
         );
+    }*/
+
+    public Symbol saveSymbolWithCategories (String prompt, List<String> categoryNames, String dalleImageUrl) {
+        byte[] imageBytes = downloadImage(dalleImageUrl);
+        String fileName = UUID.randomUUID().toString();
+        String uploadedUrl = cloudinaryService.uploadImage(imageBytes, fileName);
+
+        Symbol symbol = new Symbol();
+        symbol.setDescription(prompt);
+        symbol.setImageUrl(uploadedUrl);
+
+        // Map the category names to Category entities, create them if they don't exist
+        List<Category> categories = categoryNames.stream()
+                .map(name -> categoryService.findOrCreate(name)) // Find or create category
+                .collect(Collectors.toList());
+
+        symbol.setCategories(categories);
+
+        return symbolRepository.save(symbol);
     }
+
+    // Helper method to download image from DALL·E (or other service)
+    public byte[] downloadImage(String imageUrl) {
+        try (InputStream in = new URL(imageUrl).openStream()) {
+            return in.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to download image", e);
+        }
+    }
+
 
 
 

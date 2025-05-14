@@ -42,6 +42,7 @@ const saveSymbol = async (token, symbol) => {
 
         if (!response.ok) throw new Error('Failed to save symbol');
         const data = await response.json();
+        console.log("data", data)
         return data;
     } catch (error) {
         throw new Error(error.message || 'Failed to save symbol');

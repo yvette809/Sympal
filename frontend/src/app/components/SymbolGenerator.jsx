@@ -20,6 +20,7 @@ const SymbolGenerator = () => {
 
     const { token } = useAuthToken();
 
+
     const handleCancel = () => {
         setShowPopup(false);
         setImageUrl(null);
@@ -107,13 +108,14 @@ const SymbolGenerator = () => {
         }
 
         try {
-            const symbol = {
-                prompt,
-                imageUrl,
-                categories: selectedCategories.map(name => ({ name }))
+            const requestBody = {
+                description: prompt,
+                imageUrl: imageUrl,
+                categoryNames: selectedCategories.map(cat => cat.name)
             };
 
-            const data = await saveSymbol(token, symbol);
+            const data = await saveSymbol(token, requestBody);
+            console.log("data", data)
             setSavedSymbol(data);
             return data;
 
@@ -198,7 +200,7 @@ const SymbolGenerator = () => {
                         onConfirm={async () => {
                             await handleSave();
                             setShowPopup(false);
-                            window.location.href = "/";
+                            //window.location.href = "/";
                         }}
                         onReject={handleGenerate}
                         onCancel={handleCancel}

@@ -21,14 +21,15 @@ public class Category {
     @NonNull
     @Column(nullable = false, unique = true)
     private String name;
-  
-     private String icon;
+
+    private String icon;
 
     @ManyToMany(mappedBy = "categories")
-   
+    private List<Symbol> symbols = new ArrayList<>();
+
+    // Optional custom constructor if needed
     public Category(String name, List<Symbol> symbols) {
         this.name = name;
         this.symbols = symbols;
     }
-
 }

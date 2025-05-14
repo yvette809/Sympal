@@ -21,12 +21,6 @@ public class CategoryService {
         this.symbolRepository = symbolRepository;
     }
 
-    // Skapa eller hitta kategori med tilldelade symboler
-    public Category findOrCreate(String categoryName, List<Symbol> symbols) {
-        return categoryRepository.findByName(categoryName)
-                .orElseGet(() -> categoryRepository.save(new Category(categoryName, symbols)));
-    }
-
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
 
@@ -60,5 +54,15 @@ public class CategoryService {
         List<Symbol> symbolsToDelete = category.getSymbols();
         symbolRepository.deleteAll(symbolsToDelete);
         categoryRepository.delete(category);
+    }
+
+    public Category findOrCreate(String categoryName) {
+        Category category = categoryRepository.findByName(categoryName);
+        if (category == null) {
+            category = new Category();
+            category.setName(categoryName);
+            categoryRepository.save(category);
+        }
+        return category;
     }
 }
