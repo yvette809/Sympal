@@ -21,29 +21,29 @@ public class CategoryService {
         this.symbolRepository = symbolRepository;
     }
 
-    public Category findOrCreate(String categoryName) {
-        Category category = categoryRepository.findByName(categoryName);
-        if (category == null) {
-            category = new Category();
-            category.setName(categoryName);
-            categoryRepository.save(category);
-        }
-        return category;
+    // Skapa eller hitta kategori med tilldelade symboler
+    public Category findOrCreate(String categoryName, List<Symbol> symbols) {
+        return categoryRepository.findByName(categoryName)
+                .orElseGet(() -> categoryRepository.save(new Category(categoryName, symbols)));
     }
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
+
     }
 
+    // Skapa ny kategori
     public Category createCategory(Category category) {
         return categoryRepository.save(category);
     }
 
+    // Hämta symboler för en viss kategori
     public List<Symbol> getSymbolsByCategoryId(Long categoryId) {
         return categoryRepository.findById(categoryId)
                 .map(Category::getSymbols)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
+
 
     public Category updateCategory(Long id, Category updatedCategory) {
         return categoryRepository.findById(id).map(existingCategory -> {

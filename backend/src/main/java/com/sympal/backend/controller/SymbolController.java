@@ -1,5 +1,7 @@
 package com.sympal.backend.controller;
 
+import com.sympal.backend.dto.SymbolDTO;
+import com.sympal.backend.dto.SymbolRequest;
 import com.sympal.backend.request.SymbolRequest;
 import com.sympal.backend.entities.Symbol;
 import com.sympal.backend.service.SymbolService;
@@ -26,12 +28,8 @@ public class SymbolController {
     // 2. Save symbol after user confirms
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/saveSymbol")
-    public ResponseEntity<Symbol> saveSymbol(@RequestBody SymbolRequest request) {
-        String prompt = request.getPrompt();
-        String categoryName = request.getCategoryName();
-        String imageUrl = request.getImageUrl();
-
-        Symbol saved = symbolService.saveConfirmedSymbol(prompt, categoryName,imageUrl);
+    public ResponseEntity<SymbolDTO> saveSymbol(@RequestBody SymbolDTO symbolDTO) {
+        SymbolDTO saved = symbolService.saveSymbolWithCategories(symbolDTO);
         return ResponseEntity.ok(saved);
     }
 

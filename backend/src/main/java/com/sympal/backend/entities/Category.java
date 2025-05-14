@@ -1,10 +1,7 @@
 package com.sympal.backend.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @ToString(exclude = "symbols")
 public class Category {
 
@@ -20,22 +18,17 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
+    @Column(nullable = false, unique = true)
     private String name;
+  
+     private String icon;
 
-    private String icon;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Symbol> symbols = new ArrayList<>();
-
-    public void addSymbol(Symbol symbol) {
-        if (symbols == null) {
-            symbols = new ArrayList<>();
-        }
-        symbols.add(symbol);
+    @ManyToMany(mappedBy = "categories")
+   
+    public Category(String name, List<Symbol> symbols) {
+        this.name = name;
+        this.symbols = symbols;
     }
 
-    public void removeSymbol(Symbol symbol) {
-        symbols.remove(symbol);
-        symbol.setCategory(null);
-    }
 }

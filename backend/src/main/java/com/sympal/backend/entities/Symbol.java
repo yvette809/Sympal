@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,10 +26,13 @@ public class Symbol {
     @Column(name = "image_url", length = 5000)
     private String imageUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    @JsonIgnore
-    private Category category;
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "symbol_categories",
+            joinColumns = @JoinColumn(name = "symbol_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories = new ArrayList<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();
 

@@ -5,6 +5,7 @@ import ConfirmationModal from "@/app/components/ConfirmationModal";
 import useAuthToken from "@/app/hooks/useAuthToken";
 import { fetchCategories, generateSymbol, saveSymbol } from "@/app/api"; // Import API functions
 
+
 const SymbolGenerator = () => {
     const [prompt, setPrompt] = useState('');
     const [category, setCategory] = useState('');
@@ -15,6 +16,7 @@ const SymbolGenerator = () => {
     const [error, setError] = useState('');
     const [saving, setSaving] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
     const { token } = useAuthToken();
 
@@ -24,6 +26,15 @@ const SymbolGenerator = () => {
         setSavedSymbol(null);
         setPrompt('');
         setCategory(categories.length > 0 ? categories[0].name : '');
+        setSelectedCategories([]);
+    };
+
+    const toggleCategory = (name) => {
+        setSelectedCategories((prevSelected) =>
+            prevSelected.includes(name)
+                ? prevSelected.filter((cat) => cat !== name)
+                : [...prevSelected, name]
+        );
     };
 
     useEffect(() => {
@@ -44,6 +55,23 @@ const SymbolGenerator = () => {
         loadCategories();
     }, []);
 
+    const handleCreateCategory = async (name) => {
+        try {
+            const response = await fetch('http://localhost:8080/api/categories', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name }),
+            });
+
+            if (!response.ok) throw new Error("Misslyckades att skapa kategori");
+
+            const newCategory = await response.json();
+            setCategories((prev) => [...prev, newCategory]);
+        } catch (error) {
+            console.error("Fel vid skapande av kategori:", error);
+        }
+    };
+
     const handleGenerate = async () => {
         setShowPopup(true);
         setLoading(true);
@@ -60,6 +88,7 @@ const SymbolGenerator = () => {
         try {
             const url = await generateSymbol(token, prompt);
             setImageUrl(url);
+
         } catch (err) {
             setError(err.message);
         } finally {
@@ -80,18 +109,21 @@ const SymbolGenerator = () => {
         try {
             const symbol = {
                 prompt,
-                categoryName: category,
-                imageUrl
+                imageUrl,
+                categories: selectedCategories.map(name => ({ name }))
             };
 
             const data = await saveSymbol(token, symbol);
             setSavedSymbol(data);
+            return data;
+
         } catch (err) {
             setError('Failed to save symbol');
         } finally {
             setSaving(false);
         }
     };
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f0f4f8] to-[#d9e2ec] p-6">
@@ -108,19 +140,7 @@ const SymbolGenerator = () => {
                     />
                 </div>
 
-                <div className="mb-6">
-                    <select
-                        className="w-full p-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                    >
-                        {categories.map((cat) => (
-                            <option key={cat.id} value={cat.name}>
-                                {cat.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+
 
                 <button
                     onClick={handleGenerate}
@@ -170,6 +190,11 @@ const SymbolGenerator = () => {
                 {showPopup && (
                     <ConfirmationModal
                         imageUrl={imageUrl}
+                        categories={categories}
+                        loading={loading}
+                        selectedCategories={selectedCategories}
+                        setSelectedCategories={setSelectedCategories}
+                        onCreateCategory={handleCreateCategory}
                         onConfirm={async () => {
                             await handleSave();
                             setShowPopup(false);
@@ -177,6 +202,7 @@ const SymbolGenerator = () => {
                         }}
                         onReject={handleGenerate}
                         onCancel={handleCancel}
+                        toggleCategory={toggleCategory}
                     />
                 )}
             </div>
