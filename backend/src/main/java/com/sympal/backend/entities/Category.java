@@ -21,25 +21,14 @@ public class Category {
     @NonNull
     @Column(nullable = false, unique = true)
     private String name;
+  
+     private String icon;
 
     @ManyToMany(mappedBy = "categories")
-    private List<Symbol> symbols = new ArrayList<>();
-
-    public void addSymbol(Symbol symbol) {
-        if (!symbols.contains(symbol)) {
-            symbols.add(symbol);
-            symbol.getCategories().add(this);
-        }
-    }
-
-    public void removeSymbol(Symbol symbol) {
-        symbols.remove(symbol);
-        symbol.getCategories().remove(this);
-    }
-
-    // Extra konstruktor för enkel initiering
+   
     public Category(String name, List<Symbol> symbols) {
         this.name = name;
         this.symbols = symbols;
     }
+
 }
