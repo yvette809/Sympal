@@ -1,7 +1,6 @@
 package com.sympal.backend.controller;
 
 import com.sympal.backend.dto.SymbolDTO;
-import com.sympal.backend.request.SymbolRequest;
 import com.sympal.backend.entities.Symbol;
 import com.sympal.backend.entities.Category;
 import com.sympal.backend.service.SymbolService;
