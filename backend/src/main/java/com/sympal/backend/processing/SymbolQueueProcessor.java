@@ -24,7 +24,7 @@ public class SymbolQueueProcessor {
 
     @Scheduled(fixedRate = 10000) // every 10 sec
     public void processQueue() {
-        List<SymbolRequest> pending = requestRepo.findTop1ByStatus("PENDING");
+        List<SymbolRequest> pending = requestRepo.findTop1ByStatus(SymbolRequest.SymbolStatus.PENDING);
         for (SymbolRequest request : pending) {
             try {
                 //String imageUrl = dalleService.generateImage(request.getDescription());
@@ -36,11 +36,11 @@ public class SymbolQueueProcessor {
                 symbol.setApproved(false);
                 symbol = symbolRepo.save(symbol);
 
-                request.setStatus("DONE");
+                request.setStatus(SymbolRequest.SymbolStatus.DONE);
                 request.setSymbol(symbol);
                 requestRepo.save(request);
             } catch (Exception e) {
-                request.setStatus("FAILED");
+                request.setStatus(SymbolRequest.SymbolStatus.FAILED);
                 requestRepo.save(request);
                 e.printStackTrace();
             }

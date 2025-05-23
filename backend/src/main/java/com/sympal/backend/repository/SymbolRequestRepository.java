@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SymbolRequestRepository extends JpaRepository<SymbolRequest, Long> {
-    List<SymbolRequest> findTop1ByStatus(String status);
+    List<SymbolRequest> findTop1ByStatus(SymbolRequest.SymbolStatus status);
     Optional<SymbolRequest> findByDescriptionIgnoreCase(String description);
+    List<SymbolRequest> findByStatus(SymbolRequest.SymbolStatus status);
+
 
 }

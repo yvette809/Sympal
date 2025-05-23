@@ -39,7 +39,7 @@ public class SymbolRequestController {
         return requestRepo.findByDescriptionIgnoreCase(trimmedDesc)
                 .map(existingRequest -> {
                     // If existing request is DONE and has an image URL, return it immediately
-                    if ("DONE".equalsIgnoreCase(existingRequest.getStatus()) && existingRequest.getSymbol().getImageUrl() != null) {
+                    if (existingRequest.getStatus()== SymbolRequest.SymbolStatus.DONE && existingRequest.getSymbol().getImageUrl() != null) {
                         Map<String, String> responseBody = new HashMap<>();
                         responseBody.put("imageUrl", existingRequest.getSymbol().getImageUrl());
                         responseBody.put("message", "Symbol found in database");
@@ -48,7 +48,7 @@ public class SymbolRequestController {
                     // If existing request not DONE, still accept and start a new request or let frontend poll
                     SymbolRequest newRequest = new SymbolRequest();
                     newRequest.setDescription(trimmedDesc);
-                    newRequest.setStatus("PENDING");
+                    newRequest.setStatus(SymbolRequest.SymbolStatus.PENDING);
                     newRequest.setCreatedAt(LocalDateTime.now());
                     requestRepo.save(newRequest);
 
@@ -59,7 +59,7 @@ public class SymbolRequestController {
                     // No existing request: create new one
                     SymbolRequest newRequest = new SymbolRequest();
                     newRequest.setDescription(trimmedDesc);
-                    newRequest.setStatus("PENDING");
+                    newRequest.setStatus(SymbolRequest.SymbolStatus.PENDING);
                     newRequest.setCreatedAt(LocalDateTime.now());
                     requestRepo.save(newRequest);
 
@@ -79,7 +79,7 @@ public class SymbolRequestController {
                     response.put("word", request.getDescription());
                     response.put("status", request.getStatus());
 
-                    if ("DONE".equalsIgnoreCase(request.getStatus()) && request.getSymbol() != null) {
+                    if (request.getStatus()== SymbolRequest.SymbolStatus.DONE && request.getSymbol() != null) {
                         response.put("imageUrl", request.getSymbol().getImageUrl());
                         response.put("symbolId", request.getSymbol().getId());
                     }

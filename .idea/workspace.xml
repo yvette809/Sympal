@@ -4,26 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a230cf53-7b65-40a3-a214-bf13cf3b8e61" name="Changes" comment="redesigned the footer and navigation made it centralised">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolRequestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/processing/SymbolQueueProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRequestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7777b483-9522-4fd0-98fa-96d09b03e17b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7777b483-9522-4fd0-98fa-96d09b03e17b.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7777b483-9522-4fd0-98fa-96d09b03e17b/storage_v2/_src_/schema/symbols.2z0VmA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7777b483-9522-4fd0-98fa-96d09b03e17b/storage_v2/_src_/schema/symbols.2z0VmA.meta" afterDir="false" />
+    <list default="true" id="a230cf53-7b65-40a3-a214-bf13cf3b8e61" name="Changes" comment="added Symbolrequest and modified client side">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/dto/SymbolRequestUpdateDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/BackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/BackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Symbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/request/SymbolRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/DalleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/DalleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/SymbolService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/clientpage/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/clientpage/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolRequestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/processing/SymbolQueueProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/processing/SymbolQueueProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRequestRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,8 +101,18 @@
       <workItem from="1747218711849" duration="335000" />
       <workItem from="1747219238857" duration="1685000" />
       <workItem from="1747221088124" duration="874000" />
-      <workItem from="1747828035821" duration="4112000" />
+      <workItem from="1747828035821" duration="5163000" />
+      <workItem from="1748002965104" duration="589000" />
+      <workItem from="1748028887904" duration="8627000" />
     </task>
+    <task id="LOCAL−00001" summary="added Symbolrequest and modified client side">
+      <option name="closed" value="true" />
+      <created>1747832384385</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1747832384385</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,6 +120,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="redesigned the footer and navigation made it centralised" />
-    <option name="LAST_COMMIT_MESSAGE" value="redesigned the footer and navigation made it centralised" />
+    <MESSAGE value="added Symbolrequest and modified client side" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Symbolrequest and modified client side" />
   </component>
 </project>

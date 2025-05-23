@@ -17,9 +17,19 @@ public class SymbolRequest {
     private Long id;
 
     private String description;
-    private String status; // PENDING, DONE, FAILED
+    @Enumerated(EnumType.STRING)
+    private SymbolStatus  status; // PENDING, DONE, FAILED
     private LocalDateTime createdAt;
 
     @OneToOne
     private Symbol symbol;
+
+
+    public enum SymbolStatus {
+        PENDING,
+        DONE,
+        FAILED,
+        RESUBMIT
+    }
+
 }
