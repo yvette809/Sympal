@@ -61,7 +61,8 @@ public class SecurityConfig {
                                 "/api/auth/login",
                                 "/api/auth/register",
                                 "/api/categories/**",
-                                "/api/symbols/**",
+                                "/api/symbols/generate",
+                                "/api/symbols/saveSymbol",
                                 "/oauth2/**",
                                 "/login/oauth2/**"
                         ).permitAll()
