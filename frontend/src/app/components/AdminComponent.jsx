@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import useAuthToken from "@/app/hooks/useAuthToken";
 import { fetchCategories } from "@/app/api";
+import { fetchSymbols, approveSymbol, categorizeSymbol } from "@/app/api/adminApi";
 
 export default function AdminComponent() {
-    const { token, user, isLoggedIn, logout } = useAuthToken();
+    const { token, user, isLoggedIn } = useAuthToken();
     const [symbols, setSymbols] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState({});
@@ -13,91 +14,59 @@ export default function AdminComponent() {
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
-    // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
     const imagesPerPage = 6;
 
-    console.log("user", user)
-
     useEffect(() => {
         if (isLoggedIn) {
-            fetchSymbols();
+            loadSymbols();
             fetchCategories()
                 .then(setCategories)
-                .catch((err) => {
-                    console.error("Failed to fetch categories:", err);
-                    setError("Failed to fetch categories.");
-                });
+                .catch(() => setError("Failed to fetch categories."));
         }
     }, [isLoggedIn]);
 
-    const fetchSymbols = async () => {
+    const loadSymbols = async () => {
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:8080/api/admin/symbols", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            const data = await res.json();
+            const data = await fetchSymbols(token);
             setSymbols(data);
         } catch (err) {
-            setError("Failed to fetch symbols.");
+            setError(err.message);
         } finally {
             setLoading(false);
         }
     };
 
-    const approveSymbol = async (symbolId) => {
+    const handleApprove = async (symbolId) => {
         try {
-            await fetch(`http://localhost:8080/api/admin/approve/${symbolId}`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            await approveSymbol(symbolId, token);
             setSuccessMessage("Symbol approved.");
-            fetchSymbols();
+            loadSymbols();
         } catch (err) {
-            setError("Approval failed.");
+            setError(err.message);
         }
     };
 
-    const categorizeSymbol = async (requestId) => {
-        console.log("Current token:", token);
+    const handleCategorize = async (requestId) => {
         const categoryIds = selectedCategories[requestId] || [];
-
         if (categoryIds.length === 0) {
             setError("Please select at least one category");
             return;
         }
 
         try {
-            const res = await fetch(`http://localhost:8080/api/admin/categorize/${requestId}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(categoryIds),
-            });
-
-            if (!res.ok) {
-                const errMsg = await res.text();
-                throw new Error(`Server responded with ${res.status}: ${errMsg}`);
-            }
-
+            await categorizeSymbol(requestId, categoryIds, token);
             setSuccessMessage("Symbol successfully categorized");
             setError("");
-            fetchSymbols();
-            // Clear the selected categories for this symbol
+            loadSymbols();
             setSelectedCategories(prev => {
-                const newState = {...prev};
-                delete newState[requestId];
-                return newState;
+                const updated = { ...prev };
+                delete updated[requestId];
+                return updated;
             });
         } catch (err) {
-            setError(err.message || "Categorization failed.");
+            setError(err.message);
         }
     };
 
@@ -105,19 +74,18 @@ export default function AdminComponent() {
     if (loading) return <p>Loading symbols...</p>;
     if (error) return <p className="text-red-600">{error}</p>;
 
-    // Pagination calculations
     const lastIndex = currentPage * imagesPerPage;
     const firstIndex = lastIndex - imagesPerPage;
     const currentSymbols = symbols.slice(firstIndex, lastIndex);
-
     const totalPages = Math.ceil(symbols.length / imagesPerPage);
 
     return (
-        <div className="p-4 max-w-6xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6 text-center">Admin Panel</h1>
+        <div className="flex justify-center w-full">
+            <div className="w-full p-6 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Symbols Control Section</h1>
 
             {successMessage && (
-                <p className="text-green-600 font-semibold mb-4">{successMessage}</p>
+                <p className="text-green-600 font-semibold mb-4 text-center">{successMessage}</p>
             )}
 
             {symbols.length === 0 ? (
@@ -126,33 +94,35 @@ export default function AdminComponent() {
                 <>
                     <div className="overflow-x-auto">
                         <table className="min-w-full table-auto border border-gray-300 shadow-md">
-                            <thead className="bg-gray-100 text-left">
+                            <thead className="bg-gray-100 text-left text-sm sm:text-base">
                             <tr>
-                                <th className="p-3 border">Description</th>
-                                <th className="p-3 border">Image</th>
-                                <th className="p-3 border">Categories</th>
-                                <th className="p-3 border">Actions</th>
+                                <th className="p-2 sm:p-3 border">Description</th>
+                                <th className="p-2 sm:p-3 border">Image</th>
+                                <th className="p-2 sm:p-3 border">Categories</th>
+                                <th className="p-2 sm:p-3 border">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             {currentSymbols.map((symbolRequest) => (
                                 <tr key={symbolRequest.id} className="border-t">
-                                    <td className="p-3 border">{symbolRequest.description}</td>
-                                    <td className="p-3 border">
+                                    <td className="p-2 sm:p-3 border text-sm sm:text-base">
+                                        {symbolRequest.description}
+                                    </td>
+                                    <td className="p-2 sm:p-3 border">
                                         {symbolRequest.tempImageUrl ? (
                                             <img
                                                 src={symbolRequest.tempImageUrl}
                                                 alt={symbolRequest.description}
-                                                className="w-24 h-24 object-contain"
+                                                className="w-20 h-20 sm:w-24 sm:h-24 object-contain mx-auto"
                                             />
                                         ) : (
                                             <span>No image</span>
                                         )}
                                     </td>
-                                    <td className="p-3 border">
+                                    <td className="p-2 sm:p-3 border">
                                         <select
                                             multiple
-                                            className="w-full border rounded px-2 py-1"
+                                            className="w-full border rounded px-2 py-1 text-sm sm:text-base"
                                             value={selectedCategories[symbolRequest.id] || []}
                                             onChange={(e) => {
                                                 const selected = Array.from(
@@ -171,16 +141,16 @@ export default function AdminComponent() {
                                             ))}
                                         </select>
                                     </td>
-                                    <td className="p-3 border space-y-2">
+                                    <td className="p-2 sm:p-3 border space-y-2">
                                         <button
                                             onClick={() => approveSymbol(symbolRequest.id)}
-                                            className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 w-full"
+                                            className="bg-green-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded hover:bg-green-700 w-full text-sm sm:text-base"
                                         >
                                             Approve
                                         </button>
                                         <button
                                             onClick={() => categorizeSymbol(symbolRequest.id)}
-                                            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 w-full"
+                                            className="bg-blue-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded hover:bg-blue-700 w-full text-sm sm:text-base"
                                         >
                                             Categorize
                                         </button>
@@ -192,11 +162,11 @@ export default function AdminComponent() {
                     </div>
 
                     {/* Pagination buttons */}
-                    <div className="mt-4 flex justify-center space-x-2">
+                    <div className="mt-6 flex flex-wrap justify-center gap-2 mb-3">
                         <button
                             disabled={currentPage === 1}
                             onClick={() => setCurrentPage((p) => p - 1)}
-                            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+                            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50 text-sm sm:text-base"
                         >
                             Prev
                         </button>
@@ -204,7 +174,7 @@ export default function AdminComponent() {
                             <button
                                 key={num + 1}
                                 onClick={() => setCurrentPage(num + 1)}
-                                className={`px-3 py-1 rounded ${
+                                className={`px-3 py-1 rounded text-sm sm:text-base ${
                                     currentPage === num + 1
                                         ? "bg-blue-600 text-white"
                                         : "bg-gray-200"
@@ -216,7 +186,7 @@ export default function AdminComponent() {
                         <button
                             disabled={currentPage === totalPages}
                             onClick={() => setCurrentPage((p) => p + 1)}
-                            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+                            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50 text-sm sm:text-base"
                         >
                             Next
                         </button>
@@ -224,5 +194,7 @@ export default function AdminComponent() {
                 </>
             )}
         </div>
+        </div>
     );
+
 }

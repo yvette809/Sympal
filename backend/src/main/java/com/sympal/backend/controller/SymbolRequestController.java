@@ -1,5 +1,7 @@
 package com.sympal.backend.controller;
 
+import com.sympal.backend.entities.Symbol;
+import com.sympal.backend.repository.SymbolRepository;
 import com.sympal.backend.repository.SymbolRequestRepository;
 import com.sympal.backend.entities.SymbolRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -20,10 +23,12 @@ import java.util.Map;
 public class SymbolRequestController {
 
     private final SymbolRequestRepository requestRepo;
+    private final SymbolRepository symbolRepo;
 
     @Autowired
-    public SymbolRequestController(SymbolRequestRepository requestRepo) {
+    public SymbolRequestController(SymbolRequestRepository requestRepo, SymbolRepository symbolRepo) {
         this.requestRepo = requestRepo;
+        this.symbolRepo = symbolRepo;
     }
 
     @PostMapping
@@ -35,38 +40,27 @@ public class SymbolRequestController {
 
         String trimmedDesc = description.trim();
 
-        // Try to find existing request
-        return requestRepo.findByDescriptionIgnoreCase(trimmedDesc)
-                .map(existingRequest -> {
-                    // If existing request is DONE and has an image URL, return it immediately
-                    if (existingRequest.getStatus()== SymbolRequest.SymbolStatus.DONE && existingRequest.getSymbol().getImageUrl() != null) {
-                        Map<String, String> responseBody = new HashMap<>();
-                        responseBody.put("imageUrl", existingRequest.getSymbol().getImageUrl());
-                        responseBody.put("message", "Symbol found in database");
-                        return ResponseEntity.ok(responseBody);
-                    }
-                    // If existing request not DONE, still accept and start a new request or let frontend poll
-                    SymbolRequest newRequest = new SymbolRequest();
-                    newRequest.setDescription(trimmedDesc);
-                    newRequest.setStatus(SymbolRequest.SymbolStatus.PENDING);
-                    newRequest.setCreatedAt(LocalDateTime.now());
-                    requestRepo.save(newRequest);
+        // 1. Check in Symbol table first
+        Optional<Symbol> existingSymbolOpt = symbolRepo.findByDescription(trimmedDesc);
+        if (existingSymbolOpt.isPresent()) {
+            Symbol symbol = existingSymbolOpt.get();
+            Map<String, String> responseBody = new HashMap<>();
+            responseBody.put("imageUrl", symbol.getImageUrl());
+            responseBody.put("message", "Symbol found in symbol database");
+            return ResponseEntity.ok(responseBody);
+        }
 
-                    log.info("New symbol request saved for description: '{}' by user '{}'", trimmedDesc, username);
-                    return ResponseEntity.accepted().build();
-                })
-                .orElseGet(() -> {
-                    // No existing request: create new one
-                    SymbolRequest newRequest = new SymbolRequest();
-                    newRequest.setDescription(trimmedDesc);
-                    newRequest.setStatus(SymbolRequest.SymbolStatus.PENDING);
-                    newRequest.setCreatedAt(LocalDateTime.now());
-                    requestRepo.save(newRequest);
+        // No existing symbol or request — create new request
+        SymbolRequest newRequest = new SymbolRequest();
+        newRequest.setDescription(trimmedDesc);
+        newRequest.setStatus(SymbolRequest.SymbolStatus.PENDING);
+        newRequest.setCreatedAt(LocalDateTime.now());
+        requestRepo.save(newRequest);
 
-                    log.info("New symbol request saved for description: '{}' by user '{}'", trimmedDesc, username);
-                    return ResponseEntity.accepted().build();
-                });
+        log.info("New symbol request saved for description: '{}' by user '{}'", trimmedDesc, username);
+        return ResponseEntity.accepted().build();
     }
+
 
 
     @GetMapping("/{description}/status")
@@ -80,12 +74,8 @@ public class SymbolRequestController {
                     response.put("status", request.getStatus());
 
                     if (request.getStatus() == SymbolRequest.SymbolStatus.READY_FOR_APPROVAL) {
-                        // Use tempImageUrl stored in SymbolRequest
                         response.put("imageUrl", request.getTempImageUrl());
-                        // Optional: include symbolId if relevant
-                        if (request.getSymbol() != null) {
-                            response.put("symbolId", request.getSymbol().getId());
-                        }
+
                     }
 
                     return ResponseEntity.ok(response);

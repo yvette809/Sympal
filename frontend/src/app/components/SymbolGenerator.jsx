@@ -128,9 +128,9 @@ const SymbolGenerator = () => {
 
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f0f4f8] to-[#d9e2ec] p-6">
-            <div className="w-full max-w-lg p-8 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl">
-                <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">🎨 Symbol Generator</h2>
+        <div className="flex justify-center w-full">
+            <div className="w-full p-6 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl">
+            <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">🎨 Symbol Generator</h2>
 
                 <div className="mb-4">
                     <input
@@ -141,8 +141,6 @@ const SymbolGenerator = () => {
                         onChange={(e) => setPrompt(e.target.value)}
                     />
                 </div>
-
-
 
                 <button
                     onClick={handleGenerate}
