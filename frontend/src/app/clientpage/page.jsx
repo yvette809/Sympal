@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 const Page = () => {
     const [username, setUsername] = useState("");
@@ -39,29 +39,6 @@ const Page = () => {
 
     const normalize = (query) => query.trim().toLowerCase();
 
-    const checkSymbolInDatabase = async (query) => {
-        try {
-            const res = await fetch(`http://localhost:8080/api/symbols/${encodeURIComponent(query)}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            if (res.ok) {
-                const data = await res.json();
-                if (data.imageUrl) {
-                    setStatuses((prev) => ({ ...prev, [query]: "Symbol ready" }));
-                    setImages((prev) => ({ ...prev, [query]: data.imageUrl }));
-                    setHistory((prev) => [
-                        { description: query, imageUrl: data.imageUrl },
-                        ...prev,
-                    ]);
-                    return true;
-                }
-            }
-        } catch (err) {
-            console.error("Database check failed for", query, err);
-        }
-        return false;
-    };
-
     const startPolling = (query) => {
         if (pollingIntervals.current[query]) return;
         pollingIntervals.current[query] = setInterval(async () => {
@@ -75,7 +52,8 @@ const Page = () => {
                 if (!res.ok) throw new Error("Polling failed");
 
                 const data = await res.json();
-                if (data.status === "DONE" && data.imageUrl) {
+                console.log("data", data)
+                if (data.status === "READY_FOR_APPROVAL" && data.imageUrl) {
                     clearInterval(pollingIntervals.current[query]);
                     delete pollingIntervals.current[query];
                     setStatuses((prev) => ({ ...prev, [query]: "Symbol ready" }));
@@ -122,7 +100,6 @@ const Page = () => {
 
             if (res.ok) {
                 if (res.status === 200) {
-                    // Backend returned existing symbol immediately
                     const data = await res.json();
                     if (data.imageUrl) {
                         setStatuses((prev) => ({ ...prev, [trimmedQuery]: "Symbol ready" }));
@@ -135,12 +112,14 @@ const Page = () => {
                         setStatuses((prev) => ({ ...prev, [trimmedQuery]: "No symbol found" }));
                     }
                 } else if (res.status === 202 || res.status === 409) {
-                    // Request accepted for processing or duplicate request
                     startPolling(trimmedQuery);
                     setStatuses((prev) => ({ ...prev, [trimmedQuery]: "Submitting..." }));
                 } else {
                     const errorData = await res.json();
-                    console.error(`Unexpected status code ${res.status} for "${trimmedQuery}"`, errorData);
+                    console.error(
+                        `Unexpected status code ${res.status} for "${trimmedQuery}"`,
+                        errorData
+                    );
                     setStatuses((prev) => ({
                         ...prev,
                         [trimmedQuery]: `Unexpected response (${res.status})`,
@@ -194,17 +173,17 @@ const Page = () => {
             )}
 
             <div className="flex items-center mb-2">
-                <textarea
-                    className="border p-2 w-full rounded-l-md"
-                    placeholder="Type a word or phrase and press Enter or the Generate button"
-                    value={inputText}
-                    onKeyDown={handleKeyDown}
-                    onChange={handleInputChange}
-                    rows={1}
-                />
+        <textarea
+            className="border p-2 w-full rounded-l-md resize-none"
+            placeholder="Type a word or phrase and press Enter or the Generate button"
+            value={inputText}
+            onKeyDown={handleKeyDown}
+            onChange={handleInputChange}
+            rows={1}
+        />
                 <button
                     onClick={handleGenerateClick}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md focus:outline-none focus:shadow-outline"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md"
                 >
                     Generate
                 </button>

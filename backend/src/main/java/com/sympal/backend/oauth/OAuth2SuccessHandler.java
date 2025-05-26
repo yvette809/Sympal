@@ -61,7 +61,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         }
 
         // ✅ Generate JWT
-        String jwt = jwtUtil.generateToken(email,username);
+        String jwt = jwtUtil.generateToken(email,username,user.getRole());
 
         // ✅ JSON response
         Map<String, Object> tokenResponse = new HashMap<>();

@@ -1063,7 +1063,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="301" parent="1" name="symbols">
-      <LastIntrospectionLocalTimestamp>2025-05-21.03:41:27</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-05-26.08:07:52</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="302" parent="1" name="yvette">
@@ -1142,7 +1142,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>UK46ccwnsi9409t36lurvtyljak</UnderlyingIndexName>
     </key>
     <column id="319" parent="308" name="id">
-      <AutoIncrement>7</AutoIncrement>
+      <AutoIncrement>80</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1203,7 +1203,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <column id="332" parent="310" name="id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>96</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1224,76 +1224,80 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="337" parent="310" name="FKqho29k93c08nkfeuwmhbx5gy3">
+    <column id="337" parent="310" name="temp_image_url">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <foreign-key id="338" parent="310" name="FKqho29k93c08nkfeuwmhbx5gy3">
       <ColNames>symbol_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>symbol</RefTableName>
     </foreign-key>
-    <index id="338" parent="310" name="PRIMARY">
+    <index id="339" parent="310" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="339" parent="310" name="UKhmingemm1glxbyh7umcsfupx">
+    <index id="340" parent="310" name="UKhmingemm1glxbyh7umcsfupx">
       <ColNames>symbol_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="340" parent="310" name="PRIMARY">
+    <key id="341" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="341" parent="310" name="UKhmingemm1glxbyh7umcsfupx">
+    <key id="342" parent="310" name="UKhmingemm1glxbyh7umcsfupx">
       <UnderlyingIndexName>UKhmingemm1glxbyh7umcsfupx</UnderlyingIndexName>
     </key>
-    <column id="342" parent="311" name="id">
-      <AutoIncrement>5</AutoIncrement>
+    <column id="343" parent="311" name="id">
+      <AutoIncrement>8</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="343" parent="311" name="email">
+    <column id="344" parent="311" name="email">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="344" parent="311" name="password">
+    <column id="345" parent="311" name="password">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="345" parent="311" name="profile_image_url">
+    <column id="346" parent="311" name="profile_image_url">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="346" parent="311" name="provider">
+    <column id="347" parent="311" name="provider">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="347" parent="311" name="role">
+    <column id="348" parent="311" name="role">
       <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="348" parent="311" name="username">
+    <column id="349" parent="311" name="username">
       <DasType>varchar(255)|0s</DasType>
       <Position>7</Position>
     </column>
-    <index id="349" parent="311" name="PRIMARY">
+    <index id="350" parent="311" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="350" parent="311" name="UKob8kqyqqgmefl0aco34akdtpe">
+    <index id="351" parent="311" name="UKob8kqyqqgmefl0aco34akdtpe">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="351" parent="311" name="PRIMARY">
+    <key id="352" parent="311" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="352" parent="311" name="UKob8kqyqqgmefl0aco34akdtpe">
+    <key id="353" parent="311" name="UKob8kqyqqgmefl0aco34akdtpe">
       <UnderlyingIndexName>UKob8kqyqqgmefl0aco34akdtpe</UnderlyingIndexName>
     </key>
   </database-model>

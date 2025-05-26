@@ -79,9 +79,13 @@ public class SymbolRequestController {
                     response.put("word", request.getDescription());
                     response.put("status", request.getStatus());
 
-                    if (request.getStatus()== SymbolRequest.SymbolStatus.DONE && request.getSymbol() != null) {
-                        response.put("imageUrl", request.getSymbol().getImageUrl());
-                        response.put("symbolId", request.getSymbol().getId());
+                    if (request.getStatus() == SymbolRequest.SymbolStatus.READY_FOR_APPROVAL) {
+                        // Use tempImageUrl stored in SymbolRequest
+                        response.put("imageUrl", request.getTempImageUrl());
+                        // Optional: include symbolId if relevant
+                        if (request.getSymbol() != null) {
+                            response.put("symbolId", request.getSymbol().getId());
+                        }
                     }
 
                     return ResponseEntity.ok(response);
@@ -91,4 +95,5 @@ public class SymbolRequestController {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
                 });
     }
+
 }

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,17 +20,21 @@ public class SymbolRequest {
 
     private String description;
     @Enumerated(EnumType.STRING)
-    private SymbolStatus  status; // PENDING, DONE, FAILED
+    private SymbolStatus  status;
     private LocalDateTime createdAt;
+    private String tempImageUrl;
 
     @OneToOne
     private Symbol symbol;
+    @ElementCollection
+    private List<Long> categoryIds = new ArrayList<>();
 
 
     public enum SymbolStatus {
         PENDING,
         DONE,
         FAILED,
+        READY_FOR_APPROVAL,
         RESUBMIT
     }
 

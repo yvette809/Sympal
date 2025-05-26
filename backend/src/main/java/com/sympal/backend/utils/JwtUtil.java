@@ -21,10 +21,9 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    // ✅ Generate token with only email
-    public String generateToken(String email, String username) {
+    public String generateToken(String email, String username, String role) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", "ROLE_USER");
+        claims.put("roles", role);  // e.g. "ROLE_ADMIN" or "ROLE_USER"
         claims.put("username", username);
 
         return Jwts.builder()
@@ -35,6 +34,7 @@ public class JwtUtil {
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
+
 
     public boolean validateToken(String token, org.springframework.security.core.userdetails.UserDetails userDetails) {
         final String email = extractEmail(token);
