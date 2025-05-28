@@ -198,13 +198,21 @@ const SymbolGenerator = () => {
                         setSelectedCategories={setSelectedCategories}
                         onCreateCategory={handleCreateCategory}
                         onConfirm={async () => {
-                            await handleSave();
-                            setShowPopup(false);
-                            //window.location.href = "/";
+                            const saved = await handleSave();
+                            if (saved) {
+                                // Visa en bekräftelse
+                                setSavedSymbol(saved);
+
+                                // Vänta i 2 sekunder innan redirect
+                                setTimeout(() => {
+                                    window.location.href = "/adminpage";
+                                }, 1500);
+                            }
                         }}
                         onReject={handleGenerate}
                         onCancel={handleCancel}
                         toggleCategory={toggleCategory}
+                        savedSymbol={savedSymbol}
                     />
                 )}
             </div>

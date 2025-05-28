@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-251.23774.435">
+  <component name="dataSourceStorageLocal" created-in="IU-251.25410.129">
     <data-source name="@localhost" uuid="7777b483-9522-4fd0-98fa-96d09b03e17b">
       <database-info product="MySQL" version="8.0.41" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.0.41" exact-driver-version="8.2">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
-        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
@@ -18,6 +17,13 @@
           </node>
         </introspection-scope>
       </schema-mapping>
+    </data-source>
+    <data-source name="symbols@localhost" uuid="447985ec-a18b-4b3b-837a-a7271920a392">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>${DB_USERNAME}</user-name>
+      <schema-mapping />
+      <load-sources>user_and_system_sources</load-sources>
     </data-source>
   </component>
 </project>
