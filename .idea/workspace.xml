@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a230cf53-7b65-40a3-a214-bf13cf3b8e61" name="Changes" comment="completed admin symbol approval">
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/api/adminApi.js" afterDir="false" />
+    <list default="true" id="a230cf53-7b65-40a3-a214-bf13cf3b8e61" name="Changes" comment="refactored code for admin section">
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/api/clientSymbolApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolRequestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/adminpage/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/adminpage/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/AdminComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AdminComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/SymbolGenerator.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Symbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRequestRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/clientpage/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/clientpage/page.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +109,9 @@
       <workItem from="1748028887904" duration="16277000" />
       <workItem from="1748217152637" duration="12409000" />
       <workItem from="1748230496649" duration="2598000" />
-      <workItem from="1748241001223" duration="11218000" />
+      <workItem from="1748241001223" duration="15352000" />
+      <workItem from="1748333641598" duration="4336000" />
+      <workItem from="1748381842661" duration="1161000" />
     </task>
     <task id="LOCAL−00001" summary="added Symbolrequest and modified client side">
       <option name="closed" value="true" />
@@ -128,7 +134,14 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1748246926708</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="refactored code for admin section">
+      <option name="closed" value="true" />
+      <created>1748298371055</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1748298371055</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,7 +152,8 @@
     <MESSAGE value="added Symbolrequest and modified client side" />
     <MESSAGE value="included some endpoints for admin view" />
     <MESSAGE value="completed admin symbol approval" />
-    <option name="LAST_COMMIT_MESSAGE" value="completed admin symbol approval" />
+    <MESSAGE value="refactored code for admin section" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored code for admin section" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

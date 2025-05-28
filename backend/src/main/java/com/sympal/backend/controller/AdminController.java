@@ -42,7 +42,7 @@ public class AdminController {
         symbol.setDescription(request.getDescription());
         symbol.setImageUrl(request.getTempImageUrl());
         symbol.setApproved(true);
-        symbol.setCategories(categories); // Link categories
+        symbol.setCategories(categories);
         symbol = symbolRepo.save(symbol);
 
         request.setSymbol(symbol);

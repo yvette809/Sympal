@@ -39,6 +39,7 @@ public class Symbol {
     @JsonIgnore
     private List<Category> categories = new ArrayList<>();
 
+
     private LocalDateTime createdAt = LocalDateTime.now();
 
 }

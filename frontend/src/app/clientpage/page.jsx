@@ -2,7 +2,13 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import {jwtDecode} from "jwt-decode";
+import {
+    fetchTokenFromLocalOrSearchParams,
+    decodeToken,
+    submitSymbolRequest,
+    checkSymbolStatus,
+    getUserHistory
+} from "@/app/api/clientSymbolApi";
 
 const Page = () => {
     const [username, setUsername] = useState("");
@@ -14,28 +20,38 @@ const Page = () => {
     const searchParams = useSearchParams();
     const [token, setToken] = useState(null);
 
+    // When token changes (or on mount), decode username and fetch user history
     useEffect(() => {
-        let t = localStorage.getItem("token");
-        if (!t) {
-            t = searchParams.get("token");
-            if (t) localStorage.setItem("token", t);
-        }
+        const t = fetchTokenFromLocalOrSearchParams(searchParams);
         if (t) {
-            try {
-                const decodedToken = jwtDecode(t);
-                setUsername(decodedToken.username);
+            const decoded = decodeToken(t);
+            if (decoded) {
+                setUsername(decoded.username);
                 setToken(t);
-            } catch (error) {
-                console.error("Invalid token", error);
             }
         }
     }, [searchParams]);
 
+    // Fetch user history after token is set
     useEffect(() => {
+        if (!token) return;
+
+        const fetchHistory = async () => {
+            try {
+                const userHistory = await getUserHistory(token);
+                setHistory(userHistory.reverse());
+            } catch (error) {
+                console.error("Failed to load user history:", error);
+            }
+        };
+
+        fetchHistory();
+
         return () => {
+            // Cleanup polling intervals on unmount
             Object.values(pollingIntervals.current).forEach(clearInterval);
         };
-    }, []);
+    }, [token]);
 
     const normalize = (query) => query.trim().toLowerCase();
 
@@ -43,16 +59,10 @@ const Page = () => {
         if (pollingIntervals.current[query]) return;
         pollingIntervals.current[query] = setInterval(async () => {
             try {
-                const res = await fetch(
-                    `http://localhost:8080/api/requests/${encodeURIComponent(query)}/status`,
-                    {
-                        headers: { Authorization: `Bearer ${token}` },
-                    }
-                );
+                const res = await checkSymbolStatus(query, token);
                 if (!res.ok) throw new Error("Polling failed");
-
                 const data = await res.json();
-                console.log("data", data)
+
                 if (data.status === "READY_FOR_APPROVAL" && data.imageUrl) {
                     clearInterval(pollingIntervals.current[query]);
                     delete pollingIntervals.current[query];
@@ -84,19 +94,9 @@ const Page = () => {
     const generateSymbolForQuery = async (query) => {
         if (!query.trim()) return;
         const trimmedQuery = query.trim();
-
         try {
             setStatuses((prev) => ({ ...prev, [trimmedQuery]: "Submitting..." }));
-
-            const res = await fetch(
-                `http://localhost:8080/api/requests?description=${encodeURIComponent(trimmedQuery)}`,
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const res = await submitSymbolRequest(trimmedQuery, token);
 
             if (res.ok) {
                 if (res.status === 200) {
@@ -116,10 +116,7 @@ const Page = () => {
                     setStatuses((prev) => ({ ...prev, [trimmedQuery]: "Submitting..." }));
                 } else {
                     const errorData = await res.json();
-                    console.error(
-                        `Unexpected status code ${res.status} for "${trimmedQuery}"`,
-                        errorData
-                    );
+                    console.error(`Unexpected status code ${res.status}`, errorData);
                     setStatuses((prev) => ({
                         ...prev,
                         [trimmedQuery]: `Unexpected response (${res.status})`,
@@ -127,7 +124,7 @@ const Page = () => {
                 }
             } else {
                 const errorData = await res.json();
-                console.error(`Failed to submit "${trimmedQuery}":`, errorData);
+                console.error(`Failed to submit:`, errorData);
                 setStatuses((prev) => ({
                     ...prev,
                     [trimmedQuery]: `Failed to submit (${res.status})`,
@@ -173,14 +170,14 @@ const Page = () => {
             )}
 
             <div className="flex items-center mb-2">
-        <textarea
-            className="border p-2 w-full rounded-l-md resize-none"
-            placeholder="Type a word or phrase and press Enter or the Generate button"
-            value={inputText}
-            onKeyDown={handleKeyDown}
-            onChange={handleInputChange}
-            rows={1}
-        />
+                <textarea
+                    className="border p-2 w-full rounded-l-md resize-none"
+                    placeholder="Type a word or phrase and press Enter or the Generate button"
+                    value={inputText}
+                    onKeyDown={handleKeyDown}
+                    onChange={handleInputChange}
+                    rows={1}
+                />
                 <button
                     onClick={handleGenerateClick}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md"
@@ -204,15 +201,17 @@ const Page = () => {
                     </div>
                 ))}
             </div>
+            <div>
+                <h2>Previously Searched Symbols</h2>
 
             <div className="grid grid-cols-3 gap-4">
-                {history.map(({ description, imageUrl }) => (
+                {history.map(({ description, tempImageUrl }) => (
                     <div
-                        key={description + imageUrl}
+                        key={description + tempImageUrl}
                         className="flex flex-col items-center text-center"
                     >
                         <img
-                            src={imageUrl}
+                            src={tempImageUrl}
                             alt={description}
                             className="w-24 h-24 object-contain border rounded"
                         />
@@ -221,7 +220,9 @@ const Page = () => {
                 ))}
             </div>
         </div>
+        </div>
     );
 };
 
 export default Page;
+

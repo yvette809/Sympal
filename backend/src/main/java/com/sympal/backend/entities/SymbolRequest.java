@@ -1,5 +1,6 @@
 package com.sympal.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,11 @@ public class SymbolRequest {
     private Symbol symbol;
     @ElementCollection
     private List<Long> categoryIds = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
 
     public enum SymbolStatus {
