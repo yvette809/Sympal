@@ -60,8 +60,9 @@ public class AdminController {
     ) {
         SymbolRequest request = requestRepo.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("SymbolRequest not found"));
+        System.out.println("categoryid: " + categoryIds);
 
-        request.setCategoryIds(categoryIds); // Store the category IDs
+        request.setCategoryIds(categoryIds);
         requestRepo.save(request);
 
         return ResponseEntity.ok().build();

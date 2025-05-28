@@ -58,7 +58,7 @@ const fetchSymbolsByCategory = async (categoryId) => {
 };
 
 // speech api
-const speak = (text) => {
+const speak = (text, lang = "en-US") => {
     const utterance = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(utterance);
 };

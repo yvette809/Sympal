@@ -4,17 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a230cf53-7b65-40a3-a214-bf13cf3b8e61" name="Changes" comment="refactored code for admin section">
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/api/clientSymbolApi.js" afterDir="false" />
+    <list default="true" id="a230cf53-7b65-40a3-a214-bf13cf3b8e61" name="Changes" comment="users are now able to view their previously viewed symbols">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/JwtRequestFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/SymbolRequestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/Symbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/SymbolRequestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/oauth/OAuth2SuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/oauth/OAuth2SuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/service/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/clientpage/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/clientpage/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/AdminComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AdminComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/LoginForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/LoginForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/hooks/useAuthToken.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/hooks/useAuthToken.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +119,9 @@
       <workItem from="1748230496649" duration="2598000" />
       <workItem from="1748241001223" duration="15352000" />
       <workItem from="1748333641598" duration="4336000" />
-      <workItem from="1748381842661" duration="1161000" />
+      <workItem from="1748381842661" duration="3034000" />
+      <workItem from="1748410288379" duration="3947000" />
+      <workItem from="1748418596203" duration="14556000" />
     </task>
     <task id="LOCAL−00001" summary="added Symbolrequest and modified client side">
       <option name="closed" value="true" />
@@ -141,7 +151,14 @@
       <option name="presentableId" value="LOCAL−00004" />
       <updated>1748298371055</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL−00005" summary="users are now able to view their previously viewed symbols">
+      <option name="closed" value="true" />
+      <created>1748408211231</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1748408211232</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,14 +170,15 @@
     <MESSAGE value="included some endpoints for admin view" />
     <MESSAGE value="completed admin symbol approval" />
     <MESSAGE value="refactored code for admin section" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored code for admin section" />
+    <MESSAGE value="users are now able to view their previously viewed symbols" />
+    <option name="LAST_COMMIT_MESSAGE" value="users are now able to view their previously viewed symbols" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/config/SecurityConfig.java</url>
-          <line>99</line>
+          <line>98</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

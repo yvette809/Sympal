@@ -58,10 +58,13 @@ public class SymbolRequestController {
         }
 
         // 2. Get user from database
-        Optional<User> userOpt = userRepository.findByEmail(username);
+        Optional<User> userOpt = userRepository.findByUsername(username);
         if (userOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+            Map<String, String> errorBody = new HashMap<>();
+            errorBody.put("error", "User not found");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
         }
+
         User user = userOpt.get();
 
         // 3. Create new request
@@ -101,18 +104,20 @@ public class SymbolRequestController {
                 });
     }
 
-    // get symbol history of loggedin user
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/history")
     public ResponseEntity<List<SymbolRequest>> getRequestHistory(Authentication authentication) {
         String username = authentication.getName();
-        Optional<User> userOpt = userRepository.findByEmail(username);
+        System.out.println("username " + username);
+        Optional<User> userOpt = userRepository.findByUsername(username);
 
         if (userOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<SymbolRequest> requests = requestRepo.findByUserIdOrderByCreatedAtDesc(userOpt.get().getId());
+        User user = userOpt.get();
+        System.out.println("user" + user);
+        List<SymbolRequest> requests = requestRepo.findByUserIdOrderByCreatedAtDesc(user.getId());
         return ResponseEntity.ok(requests);
     }
 

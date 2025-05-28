@@ -52,16 +52,18 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         User user = userRepository.findByEmail(email).orElseGet(() -> {
             User newUser = new User();
             newUser.setEmail(email);
-            newUser.setUsername(username!=null? username:email);
+            newUser.setUsername(username);
             newUser.setRole("ROLE_USER");
             return userRepository.save(newUser);
         });
+
+        System.out.println("user" + user);
         if (user != null) {
             logger.info("User already exists: " + user.getEmail());
         }
 
         // ✅ Generate JWT
-        String jwt = jwtUtil.generateToken(email,username,user.getRole());
+        String jwt = jwtUtil.generateToken(username,user.getRole());
 
         // ✅ JSON response
         Map<String, Object> tokenResponse = new HashMap<>();

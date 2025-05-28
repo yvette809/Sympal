@@ -17,6 +17,7 @@ export default function AdminComponent() {
     const [currentPage, setCurrentPage] = useState(1);
     const imagesPerPage = 6;
 
+
     useEffect(() => {
         if (isLoggedIn) {
             loadSymbols();
@@ -143,17 +144,19 @@ export default function AdminComponent() {
                                     </td>
                                     <td className="p-2 sm:p-3 border space-y-2">
                                         <button
-                                            onClick={() => approveSymbol(symbolRequest.id)}
+                                            onClick={() => handleApprove(symbolRequest.id)}
                                             className="bg-green-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded hover:bg-green-700 w-full text-sm sm:text-base"
                                         >
                                             Approve
                                         </button>
+
                                         <button
-                                            onClick={() => categorizeSymbol(symbolRequest.id)}
+                                            onClick={() => handleCategorize(symbolRequest.id)}
                                             className="bg-blue-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded hover:bg-blue-700 w-full text-sm sm:text-base"
                                         >
                                             Categorize
                                         </button>
+
                                     </td>
                                 </tr>
                             ))}
