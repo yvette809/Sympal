@@ -42,54 +42,6 @@ public class SymbolService {
         return dalleService.generateImage(prompt);
     }
 
-//    public Symbol saveConfirmedSymbol (String prompt, String categoryName, String dalleImageUrl) {
-//
-//        Category category = categoryService.findOrCreate(categoryName);
-//       // String dalleUrl = dalleService.generateImage(prompt);
-//
-//        byte[] imageBytes = downloadImage(dalleImageUrl);
-//        String fileName = UUID.randomUUID().toString();
-//
-//        String uploadedUrl = cloudinaryService.uploadImage(imageBytes, fileName);
-//
-//        Symbol symbol = new Symbol();
-//        symbol.setDescription(prompt);
-//        symbol.setImageUrl(uploadedUrl);
-//        symbol.setCategory(category);
-//
-//        return symbolRepository.save(symbol);
-//    }
-//
-//    // helper method to download image from dalle
-//    public byte[] downloadImage(String imageUrl) {
-//        try (InputStream in = new URL(imageUrl).openStream()) {
-//            return in.readAllBytes();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Failed to download image", e);
-//        }
-//    }
-
-   /* @Transactional
-    public SymbolDTO saveSymbolWithCategories(SymbolDTO dto) {
-        Symbol symbol = new Symbol();
-        symbol.setDescription(dto.getDescription());
-        symbol.setImageUrl(dto.getImageUrl());
-
-        List<Category> categories = dto.getCategoryNames().stream()
-                .map(name -> categoryRepository.findByName(name)
-                        .orElseGet(() -> categoryRepository.save(new Category(name))))
-                .collect(Collectors.toList());
-
-        symbol.setCategories(categories);
-        symbolRepository.save(symbol);
-
-        return new SymbolDTO(
-                symbol.getDescription(),
-                symbol.getImageUrl(),
-                categories.stream().map(Category::getName).collect(Collectors.toList())
-        );
-    }*/
-
     public Symbol saveSymbolWithCategories (String prompt, List<String> categoryNames, String dalleImageUrl) {
         byte[] imageBytes = downloadImage(dalleImageUrl);
         String fileName = UUID.randomUUID().toString();

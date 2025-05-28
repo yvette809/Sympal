@@ -36,6 +36,7 @@ const useAuthToken = () => {
         setToken(null);
     };
 
+
     useEffect(() => {
         loadUserFromToken();
     }, []);

@@ -23,8 +23,11 @@ public class Symbol {
     private Long id;
 
     private String description;
+
     @Column(name = "image_url", length = 5000)
     private String imageUrl;
+
+    private boolean approved;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
@@ -35,6 +38,7 @@ public class Symbol {
 
     @JsonIgnore
     private List<Category> categories = new ArrayList<>();
+
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
