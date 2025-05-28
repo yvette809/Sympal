@@ -18,7 +18,6 @@ public class DalleService {
     private static final String DALL_E_URL = "https://api.openai.com/v1/images/generations";
 
     public String generateImage(String prompt) {
-        System.out.println("System ENV: " + System.getenv("OPENAI_API_KEY"));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(apiKey);

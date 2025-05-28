@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 const ConfirmationModal = ({
                                imageUrl,
@@ -11,9 +11,25 @@ const ConfirmationModal = ({
                                categories = [],
                                selectedCategories = [],
                                toggleCategory,
-                               onCreateCategory
+                               onCreateCategory,
+                               savedSymbol
+
                            }) => {
     const [newCategoryName, setNewCategoryName] = useState("");
+    const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+
+    useEffect(() => {
+        if (savedSymbol) {
+            setShowConfirmationPopup(true);
+            setTimeout(() => {
+                setShowConfirmationPopup(false);
+                // Om du vill omdirigera efteråt, lägg till:
+                window.location.href = "/adminpage";
+            }, 2000);
+        }
+    }, [savedSymbol]);
+
+
 
     const handleCreateCategory = () => {
         if (newCategoryName.trim()) {
@@ -21,6 +37,7 @@ const ConfirmationModal = ({
             setNewCategoryName("");
         }
     };
+
 
     return (
         <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center p-6">
@@ -100,9 +117,29 @@ const ConfirmationModal = ({
                             Nej, generera ny
                         </button>
                     </div>
+
+
                 </>
             )}
+
+            {showConfirmationPopup && (
+                <>
+                    {/* Mörk bakgrund */}
+                    <div className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300" />
+
+                    {/* Popup i mitten */}
+                    <div className="fixed inset-0 flex items-center justify-center z-50">
+                        <div className="bg-green-600 text-white px-6 py-4 rounded-xl shadow-lg transition-opacity duration-300 text-lg font-semibold">
+                            ✅ Symbolen sparades!
+                        </div>
+                    </div>
+                </>
+            )}
+
+
+
         </div>
+
     );
 };
 

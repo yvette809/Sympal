@@ -21,6 +21,7 @@ const LoginForm = ({ onClose, onLoginSuccess, switchToRegister }) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: "include",
                 body: JSON.stringify({ email, password }),
             });
 
@@ -30,7 +31,6 @@ const LoginForm = ({ onClose, onLoginSuccess, switchToRegister }) => {
 
             const data = await response.json()
             localStorage.setItem("token", data.token);
-            localStorage.setItem("role", data.role); // Store role if needed
 
             onLoginSuccess();
 
@@ -40,7 +40,7 @@ const LoginForm = ({ onClose, onLoginSuccess, switchToRegister }) => {
             } else if (data.role === "ROLE_USER") {
                 router.push("/clientpage");
             } else {
-                router.push("/"); // default
+                router.push("/");
             }
         } catch (err) {
             setError(err.message);
