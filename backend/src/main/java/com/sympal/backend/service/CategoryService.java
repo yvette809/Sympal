@@ -6,8 +6,11 @@ import com.sympal.backend.repository.CategoryRepository;
 import com.sympal.backend.repository.SymbolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CategoryService {
@@ -28,8 +31,13 @@ public class CategoryService {
 
     // Skapa ny kategori
     public Category createCategory(Category category) {
+        if (category.getIcon() == null || category.getIcon().isBlank()) {
+            String emoji = fetchEmojiForCategory(category.getName());
+            category.setIcon(emoji);
+        }
         return categoryRepository.save(category);
     }
+
 
     // Hämta symboler för en viss kategori
     public List<Symbol> getSymbolsByCategoryId(Long categoryId) {
@@ -64,5 +72,52 @@ public class CategoryService {
             categoryRepository.save(category);
         }
         return category;
+    }
+    @Value("${openai.api.key}")
+    private String openAiApiKey;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String fetchEmojiForCategory(String categoryName) {
+        String prompt = "Return a single emoji that represents the category: \"" + categoryName + "\". Only return the emoji, nothing else.";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(openAiApiKey);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, Object> message = Map.of(
+                "role", "user",
+                "content", prompt
+        );
+
+        Map<String, Object> requestBody = Map.of(
+                "model", "gpt-3.5-turbo",
+                "messages", List.of(message),
+                "max_tokens", 10,
+                "temperature", 0.5
+        );
+
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+
+        try {
+            ResponseEntity<Map> response = restTemplate.postForEntity(
+                    "https://api.openai.com/v1/chat/completions",
+                    request,
+                    Map.class
+            );
+
+            List<Map<String, Object>> choices = (List<Map<String, Object>>) response.getBody().get("choices");
+            if (choices != null && !choices.isEmpty()) {
+                Map<String, Object> firstChoice = choices.get(0);
+                Map<String, Object> messageMap = (Map<String, Object>) firstChoice.get("message");
+                String content = messageMap.get("content").toString().trim();
+                if (!content.isEmpty()) return content;
+            }
+
+        } catch (Exception e) {
+            System.err.println("Failed to fetch emoji from OpenAI: " + e.getMessage());
+        }
+
+        return "📁"; // fallback emoji
     }
 }
