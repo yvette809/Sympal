@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a230cf53-7b65-40a3-a214-bf13cf3b8e61" name="Changes" comment="combined approved and categorise in to one method">
+    <list default="true" id="a230cf53-7b65-40a3-a214-bf13cf3b8e61" name="Changes" comment="include reject symbols functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sympal/backend/entities/SymbolRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/api/adminApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/api/adminApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/AdminComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AdminComponent.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +103,14 @@
       <option name="presentableId" value="LOCAL−00002" />
       <updated>1748972175180</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL−00003" summary="include reject symbols functionality">
+      <option name="closed" value="true" />
+      <created>1748973841643</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1748973841643</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,6 +120,7 @@
     <MESSAGE value="redesigned the footer and navigation made it centralised" />
     <MESSAGE value="fixed some merge issues" />
     <MESSAGE value="combined approved and categorise in to one method" />
-    <option name="LAST_COMMIT_MESSAGE" value="combined approved and categorise in to one method" />
+    <MESSAGE value="include reject symbols functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="include reject symbols functionality" />
   </component>
 </project>

@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import useAuthToken from "@/app/hooks/useAuthToken";
 import { fetchCategories } from "@/app/api";
-import { fetchSymbols, approveAndCategorizeSymbol, rejectSymbolRequest } from "@/app/api/adminApi";
+import {
+    fetchSymbols,
+    approveAndCategorizeSymbol,
+    rejectSymbolRequest,
+} from "@/app/api/adminApi";
 
 export default function AdminComponent() {
     const { token, user, isLoggedIn } = useAuthToken();
@@ -13,8 +17,7 @@ export default function AdminComponent() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const imagesPerPage = 6;
+    const [skippedSymbols, setSkippedSymbols] = useState([]);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -27,8 +30,6 @@ export default function AdminComponent() {
 
     const loadSymbols = async () => {
         setLoading(true);
-        setError("");
-        setSuccessMessage("");
         try {
             const data = await fetchSymbols(token);
             setSymbols(data);
@@ -49,50 +50,38 @@ export default function AdminComponent() {
         try {
             await approveAndCategorizeSymbol(requestId, categoryIds, token);
             setSuccessMessage("Symbol approved and categorized.");
-            setError("");
-            loadSymbols();
-            setSelectedCategories((prev) => {
-                const updated = { ...prev };
-                delete updated[requestId];
-                return updated;
-            });
+            setSymbols((prev) => prev.slice(1));
         } catch (err) {
             setError(err.message);
-            setSuccessMessage("");
         }
     };
 
     const handleReject = async (requestId) => {
         try {
             await rejectSymbolRequest(requestId, token);
-            setSuccessMessage("Symbol request rejected.");
-            setError("");
-            loadSymbols();
-            setSelectedCategories((prev) => {
-                const updated = { ...prev };
-                delete updated[requestId];
-                return updated;
-            });
+            setSuccessMessage("Symbol rejected.");
+            setSymbols((prev) => prev.slice(1));
         } catch (err) {
             setError(err.message);
-            setSuccessMessage("");
         }
+    };
+
+    const handleSkip = () => {
+        if (symbols.length === 0) return;
+        setSymbols((prev) => [...prev.slice(1), prev[0]]);
     };
 
     if (!isLoggedIn) return <p>You must be logged in to view this page.</p>;
     if (loading) return <p>Loading symbols...</p>;
     if (error) return <p className="text-red-600">{error}</p>;
 
-    const lastIndex = currentPage * imagesPerPage;
-    const firstIndex = lastIndex - imagesPerPage;
-    const currentSymbols = symbols.slice(firstIndex, lastIndex);
-    const totalPages = Math.ceil(symbols.length / imagesPerPage);
+    const currentSymbol = symbols[0];
 
     return (
         <div className="flex justify-center w-full">
-            <div className="w-full p-6 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl max-w-7xl">
+            <div className="w-full p-6 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl">
                 <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
-                    Symbols Control Section
+                    Symbols Queue Management
                 </h1>
 
                 {successMessage && (
@@ -101,122 +90,80 @@ export default function AdminComponent() {
                     </p>
                 )}
 
-                {symbols.length === 0 ? (
-                    <p className="text-center">No generated symbols to show.</p>
+                {!currentSymbol ? (
+                    <p className="text-center">No more symbols in queue.</p>
                 ) : (
-                    <>
-                        <div className="overflow-x-auto">
-                            <table className="min-w-full table-auto border border-gray-300 shadow-md rounded-lg overflow-hidden">
-                                <thead className="bg-gray-100 text-left text-sm sm:text-base">
-                                <tr>
-                                    <th className="p-2 sm:p-3 border">Description</th>
-                                    <th className="p-2 sm:p-3 border">Image</th>
-                                    <th className="p-2 sm:p-3 border">Categories</th>
-                                    <th className="p-2 sm:p-3 border">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {currentSymbols.map((symbolRequest) => (
-                                    <tr key={symbolRequest.id} className="border-t hover:bg-gray-50">
-                                        <td className="p-2 sm:p-3 border text-sm sm:text-base">
-                                            {symbolRequest.description}
-                                        </td>
-                                        <td className="p-2 sm:p-3 border">
-                                            {symbolRequest.tempImageUrl ? (
-                                                <img
-                                                    src={symbolRequest.tempImageUrl}
-                                                    alt={symbolRequest.description}
-                                                    className="w-20 h-20 sm:w-24 sm:h-24 object-contain mx-auto rounded-md border"
-                                                />
-                                            ) : (
-                                                <span>No image</span>
-                                            )}
-                                        </td>
-                                        <td className="p-2 sm:p-3 border">
-                                            <div className="max-h-32 overflow-y-auto border rounded px-2 py-1 bg-white">
-                                                {categories.map((cat) => {
-                                                    const isChecked =
-                                                        (selectedCategories[symbolRequest.id] || []).includes(cat.id);
-                                                    return (
-                                                        <div
-                                                            key={cat.id}
-                                                            className="flex items-center gap-2 text-sm sm:text-base"
-                                                        >
-                                                            <input
-                                                                type="checkbox"
-                                                                id={`cat-${symbolRequest.id}-${cat.id}`}
-                                                                checked={isChecked}
-                                                                onChange={(e) => {
-                                                                    const prev = selectedCategories[symbolRequest.id] || [];
-                                                                    const updated = e.target.checked
-                                                                        ? [...prev, cat.id]
-                                                                        : prev.filter((id) => id !== cat.id);
-                                                                    setSelectedCategories((prevState) => ({
-                                                                        ...prevState,
-                                                                        [symbolRequest.id]: updated,
-                                                                    }));
-                                                                }}
-                                                                className="cursor-pointer"
-                                                            />
-                                                            <label
-                                                                htmlFor={`cat-${symbolRequest.id}-${cat.id}`}
-                                                                className="cursor-pointer select-none"
-                                                            >
-                                                                {cat.name}
-                                                            </label>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
-                                        </td>
-                                        <td className="p-2 sm:p-3 border flex flex-col gap-2">
-                                            <button
-                                                onClick={() => handleApproveAndCategorize(symbolRequest.id)}
-                                                className="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition-colors text-sm sm:text-base w-full"
-                                            >
-                                                Approve & Categorize
-                                            </button>
-                                            <button
-                                                onClick={() => handleReject(symbolRequest.id)}
-                                                className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 transition-colors text-sm sm:text-base w-full"
-                                            >
-                                                Reject
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                    <div className="max-w-3xl mx-auto">
+                        <div className="mb-4 text-center">
+                            <p className="font-semibold mb-2">Description:</p>
+                            <p className="text-lg">{currentSymbol.description}</p>
                         </div>
 
-                        <div className="mt-6 flex flex-wrap justify-center gap-2 mb-3">
+                        <div className="mb-4 flex justify-center">
+                            {currentSymbol.tempImageUrl ? (
+                                <img
+                                    src={currentSymbol.tempImageUrl}
+                                    alt={currentSymbol.description}
+                                    className="w-48 h-48 object-contain border rounded"
+                                />
+                            ) : (
+                                <span>No image available</span>
+                            )}
+                        </div>
+
+                        <div className="mb-4">
+                            <p className="font-semibold mb-2">Select Categories:</p>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                {categories.map((cat) => {
+                                    const isChecked =
+                                        (selectedCategories[currentSymbol.id] || []).includes(cat.id);
+                                    return (
+                                        <label
+                                            key={cat.id}
+                                            className="flex items-center gap-2 text-sm"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={isChecked}
+                                                onChange={(e) => {
+                                                    const prev = selectedCategories[currentSymbol.id] || [];
+                                                    const updated = e.target.checked
+                                                        ? [...prev, cat.id]
+                                                        : prev.filter((id) => id !== cat.id);
+                                                    setSelectedCategories((prevState) => ({
+                                                        ...prevState,
+                                                        [currentSymbol.id]: updated,
+                                                    }));
+                                                }}
+                                            />
+                                            {cat.name}
+                                        </label>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4 justify-center mt-6">
                             <button
-                                disabled={currentPage === 1}
-                                onClick={() => setCurrentPage((p) => p - 1)}
-                                className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50 text-sm sm:text-base"
+                                onClick={() => handleApproveAndCategorize(currentSymbol.id)}
+                                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
                             >
-                                Prev
+                                Approve & Categorize
                             </button>
-                            {[...Array(totalPages).keys()].map((num) => (
-                                <button
-                                    key={num + 1}
-                                    onClick={() => setCurrentPage(num + 1)}
-                                    className={`px-3 py-1 rounded text-sm sm:text-base ${
-                                        currentPage === num + 1 ? "bg-blue-600 text-white" : "bg-gray-200"
-                                    }`}
-                                >
-                                    {num + 1}
-                                </button>
-                            ))}
                             <button
-                                disabled={currentPage === totalPages}
-                                onClick={() => setCurrentPage((p) => p + 1)}
-                                className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50 text-sm sm:text-base"
+                                onClick={() => handleReject(currentSymbol.id)}
+                                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
                             >
-                                Next
+                                Reject
+                            </button>
+                            <button
+                                onClick={handleSkip}
+                                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                            >
+                                Skip
                             </button>
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
         </div>
