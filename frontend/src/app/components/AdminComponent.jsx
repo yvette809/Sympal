@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import useAuthToken from "@/app/hooks/useAuthToken";
 import { fetchCategories } from "@/app/api";
-import { fetchSymbols, approveSymbol, categorizeSymbol } from "@/app/api/adminApi";
+import {
+    fetchSymbols,
+    approveAndCategorizeSymbol,
+    rejectSymbolRequest,
+} from "@/app/api/adminApi";
 
 export default function AdminComponent() {
     const { token, user, isLoggedIn } = useAuthToken();
@@ -13,10 +17,7 @@ export default function AdminComponent() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const imagesPerPage = 6;
-
+    const [skippedSymbols, setSkippedSymbols] = useState([]);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -39,17 +40,7 @@ export default function AdminComponent() {
         }
     };
 
-    const handleApprove = async (symbolId) => {
-        try {
-            await approveSymbol(symbolId, token);
-            setSuccessMessage("Symbol approved.");
-            loadSymbols();
-        } catch (err) {
-            setError(err.message);
-        }
-    };
-
-    const handleCategorize = async (requestId) => {
+    const handleApproveAndCategorize = async (requestId) => {
         const categoryIds = selectedCategories[requestId] || [];
         if (categoryIds.length === 0) {
             setError("Please select at least one category");
@@ -57,147 +48,124 @@ export default function AdminComponent() {
         }
 
         try {
-            await categorizeSymbol(requestId, categoryIds, token);
-            setSuccessMessage("Symbol successfully categorized");
-            setError("");
-            loadSymbols();
-            setSelectedCategories(prev => {
-                const updated = { ...prev };
-                delete updated[requestId];
-                return updated;
-            });
+            await approveAndCategorizeSymbol(requestId, categoryIds, token);
+            setSuccessMessage("Symbol approved and categorized.");
+            setSymbols((prev) => prev.slice(1));
         } catch (err) {
             setError(err.message);
         }
+    };
+
+    const handleReject = async (requestId) => {
+        try {
+            await rejectSymbolRequest(requestId, token);
+            setSuccessMessage("Symbol rejected.");
+            setSymbols((prev) => prev.slice(1));
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    const handleSkip = () => {
+        if (symbols.length === 0) return;
+        setSymbols((prev) => [...prev.slice(1), prev[0]]);
     };
 
     if (!isLoggedIn) return <p>You must be logged in to view this page.</p>;
     if (loading) return <p>Loading symbols...</p>;
     if (error) return <p className="text-red-600">{error}</p>;
 
-    const lastIndex = currentPage * imagesPerPage;
-    const firstIndex = lastIndex - imagesPerPage;
-    const currentSymbols = symbols.slice(firstIndex, lastIndex);
-    const totalPages = Math.ceil(symbols.length / imagesPerPage);
+    const currentSymbol = symbols[0];
 
     return (
         <div className="flex justify-center w-full">
             <div className="w-full p-6 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl">
-            <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Symbols Control Section</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
+                    Symbols Queue Management
+                </h1>
 
-            {successMessage && (
-                <p className="text-green-600 font-semibold mb-4 text-center">{successMessage}</p>
-            )}
+                {successMessage && (
+                    <p className="text-green-600 font-semibold mb-4 text-center">
+                        {successMessage}
+                    </p>
+                )}
 
-            {symbols.length === 0 ? (
-                <p className="text-center">No generated symbols to show.</p>
-            ) : (
-                <>
-                    <div className="overflow-x-auto">
-                        <table className="min-w-full table-auto border border-gray-300 shadow-md">
-                            <thead className="bg-gray-100 text-left text-sm sm:text-base">
-                            <tr>
-                                <th className="p-2 sm:p-3 border">Description</th>
-                                <th className="p-2 sm:p-3 border">Image</th>
-                                <th className="p-2 sm:p-3 border">Categories</th>
-                                <th className="p-2 sm:p-3 border">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {currentSymbols.map((symbolRequest) => (
-                                <tr key={symbolRequest.id} className="border-t">
-                                    <td className="p-2 sm:p-3 border text-sm sm:text-base">
-                                        {symbolRequest.description}
-                                    </td>
-                                    <td className="p-2 sm:p-3 border">
-                                        {symbolRequest.tempImageUrl ? (
-                                            <img
-                                                src={symbolRequest.tempImageUrl}
-                                                alt={symbolRequest.description}
-                                                className="w-20 h-20 sm:w-24 sm:h-24 object-contain mx-auto"
+                {!currentSymbol ? (
+                    <p className="text-center">No more symbols in queue.</p>
+                ) : (
+                    <div className="max-w-3xl mx-auto">
+                        <div className="mb-4 text-center">
+                            <p className="font-semibold mb-2">Description:</p>
+                            <p className="text-lg">{currentSymbol.description}</p>
+                        </div>
+
+                        <div className="mb-4 flex justify-center">
+                            {currentSymbol.tempImageUrl ? (
+                                <img
+                                    src={currentSymbol.tempImageUrl}
+                                    alt={currentSymbol.description}
+                                    className="w-48 h-48 object-contain border rounded"
+                                />
+                            ) : (
+                                <span>No image available</span>
+                            )}
+                        </div>
+
+                        <div className="mb-4">
+                            <p className="font-semibold mb-2">Select Categories:</p>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                {categories.map((cat) => {
+                                    const isChecked =
+                                        (selectedCategories[currentSymbol.id] || []).includes(cat.id);
+                                    return (
+                                        <label
+                                            key={cat.id}
+                                            className="flex items-center gap-2 text-sm"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={isChecked}
+                                                onChange={(e) => {
+                                                    const prev = selectedCategories[currentSymbol.id] || [];
+                                                    const updated = e.target.checked
+                                                        ? [...prev, cat.id]
+                                                        : prev.filter((id) => id !== cat.id);
+                                                    setSelectedCategories((prevState) => ({
+                                                        ...prevState,
+                                                        [currentSymbol.id]: updated,
+                                                    }));
+                                                }}
                                             />
-                                        ) : (
-                                            <span>No image</span>
-                                        )}
-                                    </td>
-                                    <td className="p-2 sm:p-3 border">
-                                        <select
-                                            multiple
-                                            className="w-full border rounded px-2 py-1 text-sm sm:text-base"
-                                            value={selectedCategories[symbolRequest.id] || []}
-                                            onChange={(e) => {
-                                                const selected = Array.from(
-                                                    e.target.selectedOptions
-                                                ).map((o) => Number(o.value));
-                                                setSelectedCategories((prev) => ({
-                                                    ...prev,
-                                                    [symbolRequest.id]: selected,
-                                                }));
-                                            }}
-                                        >
-                                            {categories.map((cat) => (
-                                                <option key={cat.id} value={cat.id}>
-                                                    {cat.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </td>
-                                    <td className="p-2 sm:p-3 border space-y-2">
-                                        <button
-                                            onClick={() => handleApprove(symbolRequest.id)}
-                                            className="bg-green-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded hover:bg-green-700 w-full text-sm sm:text-base"
-                                        >
-                                            Approve
-                                        </button>
+                                            {cat.name}
+                                        </label>
+                                    );
+                                })}
+                            </div>
+                        </div>
 
-                                        <button
-                                            onClick={() => handleCategorize(symbolRequest.id)}
-                                            className="bg-blue-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded hover:bg-blue-700 w-full text-sm sm:text-base"
-                                        >
-                                            Categorize
-                                        </button>
-
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    {/* Pagination buttons */}
-                    <div className="mt-6 flex flex-wrap justify-center gap-2 mb-3">
-                        <button
-                            disabled={currentPage === 1}
-                            onClick={() => setCurrentPage((p) => p - 1)}
-                            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50 text-sm sm:text-base"
-                        >
-                            Prev
-                        </button>
-                        {[...Array(totalPages).keys()].map((num) => (
+                        <div className="flex gap-4 justify-center mt-6">
                             <button
-                                key={num + 1}
-                                onClick={() => setCurrentPage(num + 1)}
-                                className={`px-3 py-1 rounded text-sm sm:text-base ${
-                                    currentPage === num + 1
-                                        ? "bg-blue-600 text-white"
-                                        : "bg-gray-200"
-                                }`}
+                                onClick={() => handleApproveAndCategorize(currentSymbol.id)}
+                                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
                             >
-                                {num + 1}
+                                Approve & Categorize
                             </button>
-                        ))}
-                        <button
-                            disabled={currentPage === totalPages}
-                            onClick={() => setCurrentPage((p) => p + 1)}
-                            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50 text-sm sm:text-base"
-                        >
-                            Next
-                        </button>
+                            <button
+                                onClick={() => handleReject(currentSymbol.id)}
+                                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                            >
+                                Reject
+                            </button>
+                            <button
+                                onClick={handleSkip}
+                                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                            >
+                                Skip
+                            </button>
+                        </div>
                     </div>
-                </>
-            )}
-        </div>
+                )}
+            </div>
         </div>
     );
-
 }

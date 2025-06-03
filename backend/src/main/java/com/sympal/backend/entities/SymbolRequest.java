@@ -41,7 +41,8 @@ public class SymbolRequest {
         DONE,
         FAILED,
         READY_FOR_APPROVAL,
-        RESUBMIT
+        RESUBMIT,
+        REJECTED
     }
 
 }

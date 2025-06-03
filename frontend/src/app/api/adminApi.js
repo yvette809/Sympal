@@ -13,21 +13,8 @@ export const fetchSymbols = async (token) => {
     return res.json();
 };
 
-export const approveSymbol = async (symbolId, token) => {
-    const res = await fetch(`http://localhost:8080/api/admin/approve/${symbolId}`, {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
-    if (!res.ok) {
-        throw new Error("Approval failed.");
-    }
-};
-
-export const categorizeSymbol = async (requestId, categoryIds, token) => {
-    const res = await fetch(`http://localhost:8080/api/admin/categorize/${requestId}`, {
+export async function approveAndCategorizeSymbol(requestId, categoryIds, token) {
+    const res = await fetch(`http://localhost:8080/api/admin/approve-and-categorize/${requestId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -37,7 +24,26 @@ export const categorizeSymbol = async (requestId, categoryIds, token) => {
     });
 
     if (!res.ok) {
-        const errMsg = await res.text();
-        throw new Error(errMsg || "Categorization failed.");
+        const message = await res.text();
+        throw new Error(message || "Failed to approve and categorize symbol");
     }
-};
+
+    return res.text();
+}
+
+
+export async function rejectSymbolRequest(requestId, token) {
+    const res = await fetch(`http://localhost:8080/api/admin/reject/${requestId}`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!res.ok) {
+        const message = await res.text();
+        throw new Error(message || "Failed to reject symbol request");
+    }
+
+    return res.text();
+}

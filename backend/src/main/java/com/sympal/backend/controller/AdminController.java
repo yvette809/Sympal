@@ -26,8 +26,11 @@ public class AdminController {
     private final CategoryRepository categoryRepo;
     private final SymbolRequestRepository requestRepo;
 
-    @PostMapping("/approve/{requestId}")
-    public ResponseEntity<?> approveRequest(@PathVariable Long requestId) {
+    @PostMapping("/approve-and-categorize/{requestId}")
+    public ResponseEntity<?> approveAndCategorize(
+            @PathVariable Long requestId,
+            @RequestBody List<Long> categoryIds
+    ) {
         SymbolRequest request = requestRepo.findById(requestId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found"));
 
@@ -35,9 +38,14 @@ public class AdminController {
             return ResponseEntity.badRequest().body("Request not ready for approval");
         }
 
-        // Fetch categories from IDs stored in SymbolRequest
-        List<Category> categories = categoryRepo.findAllById(request.getCategoryIds());
+        // Save category IDs to the request
+        request.setCategoryIds(categoryIds);
+        requestRepo.save(request); // Optional here but ensures IDs are persisted
 
+        // Fetch category objects
+        List<Category> categories = categoryRepo.findAllById(categoryIds);
+
+        // Create and save the symbol
         Symbol symbol = new Symbol();
         symbol.setDescription(request.getDescription());
         symbol.setImageUrl(request.getTempImageUrl());
@@ -45,27 +53,12 @@ public class AdminController {
         symbol.setCategories(categories);
         symbol = symbolRepo.save(symbol);
 
+        // Link symbol to request and update status
         request.setSymbol(symbol);
         request.setStatus(SymbolRequest.SymbolStatus.DONE);
         requestRepo.save(request);
 
-        return ResponseEntity.ok("Approved and saved");
-    }
-
-
-    @PostMapping("/categorize/{requestId}")
-    public ResponseEntity<Void> categorize(
-            @PathVariable Long requestId,
-            @RequestBody List<Long> categoryIds
-    ) {
-        SymbolRequest request = requestRepo.findById(requestId)
-                .orElseThrow(() -> new RuntimeException("SymbolRequest not found"));
-        System.out.println("categoryid: " + categoryIds);
-
-        request.setCategoryIds(categoryIds);
-        requestRepo.save(request);
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Symbol approved and categorized successfully");
     }
 
 
@@ -87,5 +80,21 @@ public class AdminController {
             request.setSymbol(null);
             return ResponseEntity.ok(requestRepo.save(request));
         }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/reject/{requestId}")
+    public ResponseEntity<?> rejectSymbolRequest(@PathVariable Long requestId) {
+        SymbolRequest request = requestRepo.findById(requestId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found"));
+
+        if (request.getStatus() != SymbolRequest.SymbolStatus.READY_FOR_APPROVAL) {
+            return ResponseEntity.badRequest().body("Request not ready for rejection");
+        }
+
+        request.setStatus(SymbolRequest.SymbolStatus.REJECTED);
+        request.setSymbol(null);
+        requestRepo.save(request);
+
+        return ResponseEntity.ok("Symbol request rejected successfully");
     }
 }
