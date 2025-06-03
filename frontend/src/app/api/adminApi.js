@@ -30,3 +30,20 @@ export async function approveAndCategorizeSymbol(requestId, categoryIds, token) 
 
     return res.text();
 }
+
+
+export async function rejectSymbolRequest(requestId, token) {
+    const res = await fetch(`http://localhost:8080/api/admin/reject/${requestId}`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!res.ok) {
+        const message = await res.text();
+        throw new Error(message || "Failed to reject symbol request");
+    }
+
+    return res.text();
+}

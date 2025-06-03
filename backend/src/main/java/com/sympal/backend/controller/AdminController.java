@@ -81,4 +81,20 @@ public class AdminController {
             return ResponseEntity.ok(requestRepo.save(request));
         }).orElse(ResponseEntity.notFound().build());
     }
+
+    @PostMapping("/reject/{requestId}")
+    public ResponseEntity<?> rejectSymbolRequest(@PathVariable Long requestId) {
+        SymbolRequest request = requestRepo.findById(requestId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found"));
+
+        if (request.getStatus() != SymbolRequest.SymbolStatus.READY_FOR_APPROVAL) {
+            return ResponseEntity.badRequest().body("Request not ready for rejection");
+        }
+
+        request.setStatus(SymbolRequest.SymbolStatus.REJECTED);
+        request.setSymbol(null);
+        requestRepo.save(request);
+
+        return ResponseEntity.ok("Symbol request rejected successfully");
+    }
 }
